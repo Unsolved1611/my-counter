@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,10 @@
     <!-- Google Fonts: Plus Jakarta Sans for UI, JetBrains Mono for numbers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -32,43 +35,55 @@
         /* Modern background grid pattern */
         .grid-bg {
             background-size: 40px 40px;
-            background-image: 
+            background-image:
                 linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
         }
+
         /* Custom scrollbar for beautiful styling */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
+
         ::-webkit-scrollbar-track {
             background: #020617;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #1e293b;
             border-radius: 3px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: #334155;
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between font-sans selection:bg-emerald-500/30 overflow-x-hidden relative grid-bg">
+
+<body
+    class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between font-sans selection:bg-emerald-500/30 overflow-x-hidden relative grid-bg">
 
     <!-- Ambient glowing backdrops -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-emerald-500/5 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none z-0"></div>
-    <div class="absolute bottom-1/4 left-1/4 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-teal-600/5 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none z-0"></div>
+    <div
+        class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-emerald-500/5 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none z-0">
+    </div>
+    <div
+        class="absolute bottom-1/4 left-1/4 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-teal-600/5 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none z-0">
+    </div>
 
     <!-- Main Container -->
     <main class="flex-grow flex flex-col justify-center items-center px-4 py-12 sm:py-20 z-10 w-full max-w-7xl mx-auto">
-        
+
         <!-- Header -->
         <div class="text-center mb-12 sm:mb-16 select-none">
-            <div class="inline-flex items-center gap-2 px-3 py-1 bg-slate-900/80 border border-slate-800 rounded-full text-xs font-semibold text-slate-400 tracking-wider mb-6 backdrop-blur-md shadow-sm">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 bg-slate-900/80 border border-slate-800 rounded-full text-xs font-semibold text-slate-400 tracking-wider mb-6 backdrop-blur-md shadow-sm">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 JOURNEY ACTIVE
             </div>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-slate-100 via-emerald-100 to-teal-200 bg-clip-text text-transparent">
+            <h1
+                class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-slate-100 via-emerald-100 to-teal-200 bg-clip-text text-transparent">
                 Days of Discipline
             </h1>
             <p class="text-sm sm:text-base text-slate-400 mt-3 max-w-md mx-auto font-light leading-relaxed">
@@ -78,60 +93,93 @@
 
         <!-- Main Counters Grid -->
         <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-6 w-full max-w-6xl mb-12 sm:mb-16">
-            
+
             <!-- Years -->
-            <div class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
-                <span class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Years of Focus</span>
-                <span id="years" class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
-                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-300" style="width: 0%" id="years-progress"></div>
+            <div
+                class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
+                <span
+                    class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Years
+                    of Focus</span>
+                <span id="years"
+                    class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
+                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-300"
+                    style="width: 0%" id="years-progress"></div>
             </div>
 
             <!-- Months -->
-            <div class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
-                <span class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Months of Growth</span>
-                <span id="months" class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
-                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-300" style="width: 0%" id="months-progress"></div>
+            <div
+                class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
+                <span
+                    class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Months
+                    of Growth</span>
+                <span id="months"
+                    class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
+                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-300"
+                    style="width: 0%" id="months-progress"></div>
             </div>
 
             <!-- Days -->
-            <div class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
-                <span class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Days of Freedom</span>
-                <span id="days" class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
-                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-teal-500 to-cyan-500 transition-all duration-300" style="width: 0%" id="days-progress"></div>
+            <div
+                class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
+                <span
+                    class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Days
+                    of Freedom</span>
+                <span id="days"
+                    class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
+                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-teal-500 to-cyan-500 transition-all duration-300"
+                    style="width: 0%" id="days-progress"></div>
             </div>
 
             <!-- Hours -->
-            <div class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
-                <span class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Hours of Clarity</span>
-                <span id="hours" class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
-                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-cyan-500 to-sky-500 transition-all duration-300" style="width: 0%" id="hours-progress"></div>
+            <div
+                class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
+                <span
+                    class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Hours
+                    of Clarity</span>
+                <span id="hours"
+                    class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
+                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-cyan-500 to-sky-500 transition-all duration-300"
+                    style="width: 0%" id="hours-progress"></div>
             </div>
 
             <!-- Minutes -->
-            <div class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
-                <span class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Minutes of Discipline</span>
-                <span id="minutes" class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
-                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-sky-500 to-blue-500 transition-all duration-300" style="width: 0%" id="minutes-progress"></div>
+            <div
+                class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
+                <span
+                    class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Minutes
+                    of Discipline</span>
+                <span id="minutes"
+                    class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
+                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-sky-500 to-blue-500 transition-all duration-300"
+                    style="width: 0%" id="minutes-progress"></div>
             </div>
 
             <!-- Seconds -->
-            <div class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
-                <span class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Seconds of Strength</span>
-                <span id="seconds" class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
-                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-300" style="width: 0%" id="seconds-progress"></div>
+            <div
+                class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
+                <span
+                    class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2 group-hover:text-emerald-400 transition-colors">Seconds
+                    of Strength</span>
+                <span id="seconds"
+                    class="text-4xl sm:text-5xl md:text-6xl font-light font-mono text-emerald-400 tracking-tight">00</span>
+                <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-300"
+                    style="width: 0%" id="seconds-progress"></div>
             </div>
 
         </div>
 
         <!-- Info Panels & Action Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-            
+
             <!-- Target Details -->
-            <div class="bg-slate-900/20 backdrop-blur-lg border border-slate-800/80 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+            <div
+                class="bg-slate-900/20 backdrop-blur-lg border border-slate-800/80 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
                 <div>
                     <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                         Commitment Details
                     </h3>
@@ -146,14 +194,18 @@
                         </div>
                         <div class="border-t border-slate-800/60 my-2 pt-2 flex justify-between items-center text-xs">
                             <span class="text-slate-500">Local Timezone:</span>
-                            <span id="local-timezone" class="font-mono text-slate-400 truncate max-w-[180px]">Detecting...</span>
+                            <span id="local-timezone"
+                                class="font-mono text-slate-400 truncate max-w-[180px]">Detecting...</span>
                         </div>
                     </div>
                 </div>
-                
-                <button onclick="copyElapsedTime()" class="mt-6 flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-xl text-xs font-semibold transition-all duration-200 border border-slate-700/60 shadow-sm active:scale-[0.98]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+
+                <button onclick="copyElapsedTime()"
+                    class="mt-6 flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-xl text-xs font-semibold transition-all duration-200 border border-slate-700/60 shadow-sm active:scale-[0.98]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                     </svg>
                     Copy Growth Streak
                 </button>
@@ -162,27 +214,33 @@
             <!-- Cumulative Stats -->
             <div class="bg-slate-900/20 backdrop-blur-lg border border-slate-800/80 p-6 rounded-2xl shadow-lg">
                 <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                     Cumulative Progress
                 </h3>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="bg-slate-900/50 border border-slate-800/40 p-3 rounded-xl flex flex-col justify-center">
                         <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Total Days</span>
-                        <span id="total-days" class="font-mono text-lg font-medium text-emerald-400 tracking-tight mt-1">0</span>
+                        <span id="total-days"
+                            class="font-mono text-lg font-medium text-emerald-400 tracking-tight mt-1">0</span>
                     </div>
                     <div class="bg-slate-900/50 border border-slate-800/40 p-3 rounded-xl flex flex-col justify-center">
                         <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Total Hours</span>
-                        <span id="total-hours" class="font-mono text-lg font-medium text-emerald-400 tracking-tight mt-1">0</span>
+                        <span id="total-hours"
+                            class="font-mono text-lg font-medium text-emerald-400 tracking-tight mt-1">0</span>
                     </div>
                     <div class="bg-slate-900/50 border border-slate-800/40 p-3 rounded-xl flex flex-col justify-center">
                         <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Total Minutes</span>
-                        <span id="total-minutes" class="font-mono text-lg font-medium text-emerald-400 tracking-tight mt-1">0</span>
+                        <span id="total-minutes"
+                            class="font-mono text-lg font-medium text-emerald-400 tracking-tight mt-1">0</span>
                     </div>
                     <div class="bg-slate-900/50 border border-slate-800/40 p-3 rounded-xl flex flex-col justify-center">
                         <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Total Seconds</span>
-                        <span id="total-seconds" class="font-mono text-lg font-medium text-emerald-400 tracking-tight mt-1">0</span>
+                        <span id="total-seconds"
+                            class="font-mono text-lg font-medium text-emerald-400 tracking-tight mt-1">0</span>
                     </div>
                 </div>
             </div>
@@ -190,9 +248,11 @@
         </div>
 
         <!-- Minimalist Motivational Quote Card -->
-        <div class="mt-8 sm:mt-12 w-full max-w-4xl bg-slate-900/30 backdrop-blur-lg border border-slate-800/80 p-6 rounded-2xl shadow-xl flex flex-col items-center text-center select-none">
+        <div
+            class="mt-8 sm:mt-12 w-full max-w-4xl bg-slate-900/30 backdrop-blur-lg border border-slate-800/80 p-6 rounded-2xl shadow-xl flex flex-col items-center text-center select-none">
             <svg class="h-6 w-6 text-emerald-500/40 mb-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-4.765 2.627-5.123 5.431.314-.042.63-.061.947-.061 3.206 0 5.161 2.583 5.161 5.417 0 2.861-2.31 5.102-5.161 5.102-3.025 0-5.802-3-5.802-10.04zm-12.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-4.787 2.627-5.144 5.431.314-.042.63-.061.947-.061 3.206 0 5.178 2.583 5.178 5.417 0 2.861-2.31 5.102-5.178 5.102-3.007 0-5.802-3-5.802-10.04z" />
+                <path
+                    d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-4.765 2.627-5.123 5.431.314-.042.63-.061.947-.061 3.206 0 5.161 2.583 5.161 5.417 0 2.861-2.31 5.102-5.161 5.102-3.025 0-5.802-3-5.802-10.04zm-12.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-4.787 2.627-5.144 5.431.314-.042.63-.061.947-.061 3.206 0 5.178 2.583 5.178 5.417 0 2.861-2.31 5.102-5.178 5.102-3.007 0-5.802-3-5.802-10.04z" />
             </svg>
             <p class="text-sm sm:text-base text-slate-300 italic font-light max-w-2xl leading-relaxed">
                 "Discipline is choosing between what you want now and what you want most."
@@ -205,14 +265,18 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full text-center py-6 border-t border-slate-900 z-10 bg-slate-950/80 backdrop-blur-md select-none text-[11px] sm:text-xs text-slate-500 font-light">
+    <footer
+        class="w-full text-center py-6 border-t border-slate-900 z-10 bg-slate-950/80 backdrop-blur-md select-none text-[11px] sm:text-xs text-slate-500 font-light">
         Freedom Tracker &bull; Built for Strength & Mindfulness
     </footer>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 border border-slate-800 text-slate-100 text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-350 ease-out z-50">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    <div id="toast"
+        class="fixed bottom-6 right-6 bg-slate-900 border border-slate-800 text-slate-100 text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-350 ease-out z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <span id="toast-message">Copied to clipboard!</span>
     </div>
@@ -308,11 +372,11 @@
             // Years doesn't have a standard max cap, we can cycle every 10 years or just keep it filled.
             const yearsProgressPercent = Math.min((years / 10) * 100, 100);
             const monthsProgressPercent = (months / 12) * 100;
-            
+
             // Days in current month for accurate progress
             const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
             const daysProgressPercent = (days / daysInMonth) * 100;
-            
+
             const hoursProgressPercent = (hours / 24) * 100;
             const minutesProgressPercent = (minutes / 60) * 100;
             const secondsProgressPercent = (seconds / 60) * 100;
@@ -361,7 +425,7 @@
         function showToast(message) {
             const toast = document.getElementById("toast");
             document.getElementById("toast-message").textContent = message;
-            
+
             // Reset transition and classes if already open
             toast.classList.remove("translate-y-20", "opacity-0");
             toast.classList.add("translate-y-0", "opacity-100");
@@ -379,4 +443,5 @@
         setInterval(updateCounter, 200);
     </script>
 </body>
+
 </html>
