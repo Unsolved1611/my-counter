@@ -1,1855 +1,1152 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AURA // PMO Harm-Reduction & Recovery Dashboard</title>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Premium Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
-    rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Outfit', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            darkbg: '#050814',
-            panel: '#0d1326',
-            panelLight: '#141d36',
-            neonCyan: '#00f0ff',
-            neonGreen: '#10b981',
-            neonOrange: '#f97316',
-            neonPurple: '#bd00ff',
-            darkSlate: '#1e293b',
-          },
-          boxShadow: {
-            'glow-cyan': '0 0 15px rgba(0, 240, 255, 0.45)',
-            'glow-green': '0 0 15px rgba(16, 185, 129, 0.45)',
-            'glow-orange': '0 0 15px rgba(249, 115, 22, 0.45)',
-            'glow-purple': '0 0 15px rgba(189, 0, 255, 0.45)',
-            'glass': 'inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.65)',
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign - Mindful Wellness Dashboard</title>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.415.0/dist/umd/lucide.min.js"></script>
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f4f6fc',
+                            100: '#e8ecf8',
+                            200: '#cbd5f1',
+                            300: '#a0b3e6',
+                            400: '#708cd8',
+                            500: '#4d69c7',
+                            600: '#3c4fad',
+                            700: '#32408c',
+                            800: '#2b3573',
+                            900: '#272f5f',
+                            950: '#0b0f19',
+                        },
+                        emerald: {
+                            500: '#10b981',
+                            600: '#059669',
+                            950: '#022c22'
+                        }
+                    }
+                }
+            }
         }
-      }
-    }
-  </script>
+    </script>
+    <style>
+        /* Custom scrollbar and animations */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
 
-  <style>
-    /* Custom premium dark styling and scrollbars */
-    body {
-      background-color: #050814;
-      background-image:
-        radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.04) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(189, 0, 255, 0.04) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.02) 0%, transparent 60%);
-      background-attachment: fixed;
-      color: #f8fafc;
-      overflow-x: hidden;
-    }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
 
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.3);
+            border-radius: 4px;
+        }
 
-    ::-webkit-scrollbar-track {
-      background: #050814;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #1e293b;
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #334155;
-    }
-
-    /* Pulse & glow animations */
-    @keyframes pulse-cyan {
-
-      0%,
-      100% {
-        box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
-        opacity: 1;
-      }
-
-      50% {
-        box-shadow: 0 0 24px rgba(0, 240, 255, 0.85);
-        opacity: 0.9;
-      }
-    }
-
-    @keyframes pulse-green {
-
-      0%,
-      100% {
-        box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
-        opacity: 1;
-      }
-
-      50% {
-        box-shadow: 0 0 24px rgba(16, 185, 129, 0.85);
-        opacity: 0.9;
-      }
-    }
-
-    @keyframes pulse-orange {
-
-      0%,
-      100% {
-        box-shadow: 0 0 12px rgba(249, 115, 22, 0.4);
-        opacity: 1;
-      }
-
-      50% {
-        box-shadow: 0 0 24px rgba(249, 115, 22, 0.85);
-        opacity: 0.9;
-      }
-    }
-
-    .glow-cyan-animate {
-      animation: pulse-cyan 3s infinite;
-    }
-
-    .glow-green-animate {
-      animation: pulse-green 3s infinite;
-    }
-
-    .glow-orange-animate {
-      animation: pulse-orange 3s infinite;
-    }
-
-    /* Guided Breathing Wave */
-    @keyframes breath-cycle {
-
-      0%,
-      100% {
-        transform: scale(1);
-        background-color: rgba(0, 240, 255, 0.1);
-        box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-      }
-
-      25% {
-        transform: scale(2.2);
-        background-color: rgba(0, 240, 255, 0.25);
-        box-shadow: 0 0 45px rgba(0, 240, 255, 0.6);
-      }
-
-      50% {
-        transform: scale(2.2);
-        background-color: rgba(0, 240, 255, 0.25);
-        box-shadow: 0 0 45px rgba(0, 240, 255, 0.6);
-      }
-
-      75% {
-        transform: scale(1);
-        background-color: rgba(0, 240, 255, 0.1);
-        box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-      }
-    }
-
-    .breathing-node {
-      animation: breath-cycle 16s infinite cubic-bezier(0.4, 0, 0.2, 1);
-      animation-play-state: paused;
-    }
-
-    .breathing-node.active {
-      animation-play-state: running;
-    }
-  </style>
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(156, 163, 175, 0.5);
+        }
+    </style>
 </head>
 
-<body class="min-h-screen pb-16 antialiased font-sans">
+<body
+    class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans">
 
-  <!-- ================= HEADER SECTION ================= -->
-  <header class="border-b border-slate-800/80 bg-slate-950/65 backdrop-blur-md sticky top-0 z-40 px-4 py-3 sm:px-8">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
-      <!-- Brand & Status -->
-      <div class="flex items-center justify-between md:justify-start gap-4">
-        <div class="flex items-center gap-3">
-          <div
-            class="w-10 h-10 rounded-xl bg-gradient-to-br from-neonCyan via-indigo-600 to-neonPurple flex items-center justify-center shadow-lg shadow-cyan-500/10">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9s2.015-9 4.5-9m0 0a9.015 9.015 0 010 18.03" />
-            </svg>
-          </div>
-          <div>
-            <h1 class="text-xl font-bold tracking-wider text-slate-100 flex items-center gap-1.5 uppercase">
-              Aura <span
-                class="text-neonCyan text-xs tracking-widest font-extrabold px-1.5 py-0.5 rounded bg-neonCyan/10 border border-neonCyan/20">PMO</span>
-            </h1>
-            <p class="text-[10px] tracking-widest text-slate-400 font-semibold uppercase">Recovery Command Center</p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <!-- Main status badge -->
-          <div id="header-status-badge"
-            class="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-slate-800 bg-slate-900/50">
-            <span class="w-2.5 h-2.5 rounded-full bg-slate-500 inline-block"></span>
-            <span id="header-status-text" class="text-slate-400">Syncing...</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Real-Time / Demo Information & Quick Controls -->
-      <div
-        class="flex items-center justify-between md:justify-end gap-4 md:gap-6 border-t border-slate-800/50 md:border-t-0 pt-3 md:pt-0">
-        <div class="text-left md:text-right">
-          <p id="live-time-display" class="font-mono text-sm font-semibold text-slate-300">Evaluating timeline...</p>
-          <p id="live-date-display" class="text-xs text-slate-500 font-medium">Please wait...</p>
-        </div>
-
-        <div class="flex gap-2">
-          <!-- SOS Trigger -->
-          <button onclick="openSosModal()"
-            class="px-3.5 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 border border-red-500/20 hover:border-red-500/40 rounded-xl text-xs font-bold tracking-wider transition-all duration-300 flex items-center gap-1.5 shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-            <span>SOS URGE</span>
-          </button>
-
-          <!-- Time Machine Toggle -->
-          <button onclick="toggleTimeMachine()" id="tm-toggle-btn"
-            class="px-3.5 py-1.5 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl text-xs font-bold tracking-wider transition-all duration-300 flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-neonCyan" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 6V12h3.75M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.115 0 4.049.728 5.6 1.95L21 7.5M21 7.5V3m0 4.5h-4.5" />
-            </svg>
-            <span>TIME MACHINE</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= TIME MACHINE (DEMO MODE PANEL) ================= -->
-    <div id="time-machine-panel"
-      class="max-w-7xl mx-auto mt-4 p-4 rounded-2xl bg-slate-900/90 border border-slate-800/80 shadow-glass hidden overflow-hidden transition-all duration-500">
-      <div class="flex flex-col gap-4">
-        <div
-          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-800/60 pb-3">
-          <div>
-            <h3 class="text-sm font-bold tracking-wider text-neonCyan uppercase flex items-center gap-1.5">
-              <span>🔧 Time Machine Controls</span>
-              <span
-                class="text-[10px] bg-neonCyan/10 text-neonCyan px-1.5 py-0.5 rounded font-extrabold normal-case">Sandbox</span>
-            </h3>
-            <p class="text-xs text-slate-400">Shift real-world time to test dynamic calculations and preview the 183-day
-              layout across all 5 phases.</p>
-          </div>
-          <button onclick="resetToToday()"
-            class="text-xs text-slate-400 hover:text-white underline font-semibold transition">
-            Reset to Real Time
-          </button>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
-          <div class="md:col-span-3">
-            <label for="tm-slider" class="flex justify-between items-center text-xs text-slate-400 mb-1 font-semibold">
-              <span>Date Shift Scale (Days from start)</span>
-              <span id="tm-slider-label"
-                class="text-neonCyan font-mono bg-slate-950 px-2 py-0.5 rounded border border-slate-800">Day 0 (Plan
-                Start)</span>
-            </label>
-            <input type="range" id="tm-slider" min="0" max="184" value="0" oninput="handleSliderChange(this.value)"
-              class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-neonCyan">
-            <div class="flex justify-between text-[10px] text-slate-500 mt-1 font-medium">
-              <span>July 7, 2026 (Relapse)</span>
-              <span>October 2026 (Midway)</span>
-              <span>Jan 7, 2027 (Completed)</span>
+    <!-- Header Section -->
+    <header
+        class="border-b border-slate-200 dark:border-slate-800/80 bg-white/60 dark:bg-slate-950/60 backdrop-blur-md sticky top-0 z-30 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 rounded-xl"
+                    id="logo-container">
+                    <i data-lucide="shield" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white" id="app-title">Sovereign
+                    </h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400" id="app-subtitle">Private Self-Mastery
+                        Dashboard</p>
+                </div>
             </div>
-          </div>
 
-          <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold text-slate-400">Set Date Directly</span>
-            <input type="date" id="tm-date-picker" onchange="handleDatePickerChange(this.value)"
-              class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-100 font-semibold focus:outline-none focus:border-neonCyan w-full">
-          </div>
-        </div>
+            <div class="flex items-center gap-2">
+                <!-- Privacy Mode Button -->
+                <button id="privacy-toggle" onclick="togglePrivacyMode()"
+                    class="flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-medium transition-all duration-200 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300">
+                    <span class="flex h-2 w-2 relative" id="privacy-dot-container">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-slate-400"></span>
+                    </span>
+                    <i data-lucide="eye" class="w-4 h-4" id="privacy-icon"></i>
+                    <span id="privacy-text" class="hidden sm:inline">Privacy: Off</span>
+                </button>
 
-        <!-- Presets Grid -->
-        <div>
-          <span class="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-2">Phase Jump
-            Presets</span>
-          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-9 gap-1.5">
-            <button onclick="setDemoPreset('2026-07-07')"
-              class="px-2 py-1 text-[10px] bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 border border-red-500/20 rounded-lg font-bold transition">Last
-              Relapse</button>
-            <button onclick="setDemoPreset('2026-07-10')"
-              class="px-2 py-1 text-[10px] bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-lg font-semibold transition">P1:
-              Cycle 1</button>
-            <button onclick="setDemoPreset('2026-07-12')"
-              class="px-2 py-1 text-[10px] bg-neonOrange/10 hover:bg-neonOrange/20 text-neonOrange hover:text-orange-300 border border-neonOrange/20 rounded-lg font-bold transition">P1:
-              Release 1</button>
-            <button onclick="setDemoPreset('2026-07-25')"
-              class="px-2 py-1 text-[10px] bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-lg font-semibold transition">P2:
-              Weekly</button>
-            <button onclick="setDemoPreset('2026-08-07')"
-              class="px-2 py-1 text-[10px] bg-neonOrange/10 hover:bg-neonOrange/20 text-neonOrange hover:text-orange-300 border border-neonOrange/20 rounded-lg font-bold transition">P2:
-              Release 2</button>
-            <button onclick="setDemoPreset('2026-08-15')"
-              class="px-2 py-1 text-[10px] bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-lg font-semibold transition">P3:
-              Fortnight</button>
-            <button onclick="setDemoPreset('2026-09-15')"
-              class="px-2 py-1 text-[10px] bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-lg font-semibold transition">P4:
-              Leap 30D</button>
-            <button onclick="setDemoPreset('2026-11-20')"
-              class="px-2 py-1 text-[10px] bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-lg font-semibold transition">P5:
-              Flight 90D</button>
-            <button onclick="setDemoPreset('2027-01-06')"
-              class="px-2 py-1 text-[10px] bg-neonGreen/10 hover:bg-neonGreen/20 text-neonGreen hover:text-green-300 border border-neonGreen/20 rounded-lg font-bold transition">Victory
-              Day</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ================= MAIN CONTENT CONTAINER ================= -->
-  <main class="max-w-7xl mx-auto px-4 mt-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-    <!-- ================= LEFT COLUMN: HERO CONTROLLER & SOS (lg:col-span-5) ================= -->
-    <section class="lg:col-span-5 flex flex-col gap-6">
-
-      <!-- HERO TIMER CARD -->
-      <div id="hero-countdown-card"
-        class="p-6 sm:p-8 rounded-3xl bg-slate-950/80 border border-slate-800/80 shadow-glass relative overflow-hidden flex flex-col items-center justify-center glow-cyan-animate text-center transition-all duration-500">
-        <!-- Radial gradient behind circle -->
-        <div class="absolute -top-12 -left-12 w-48 h-48 bg-neonCyan/10 blur-[50px] rounded-full pointer-events-none">
-        </div>
-        <div
-          class="absolute -bottom-12 -right-12 w-48 h-48 bg-indigo-600/5 blur-[50px] rounded-full pointer-events-none">
-        </div>
-
-        <div class="z-10 w-full flex flex-col items-center">
-          <!-- Active Target Info -->
-          <span id="countdown-label-box"
-            class="px-3.5 py-1 rounded-full text-[11px] font-black tracking-widest text-neonCyan bg-neonCyan/10 border border-neonCyan/20 uppercase mb-5">
-            INITIALIZING TIMER...
-          </span>
-
-          <!-- Beautiful Progress Radial Gauge -->
-          <div class="relative w-56 h-56 flex items-center justify-center mb-6">
-            <svg class="w-full h-full transform -rotate-90">
-              <!-- Background ring -->
-              <circle cx="112" cy="112" r="95" stroke="#0e172e" stroke-width="11" fill="transparent" />
-              <!-- Active progress ring -->
-              <circle id="timer-radial-progress" cx="112" cy="112" r="95" stroke="url(#cyan-indigo-gradient)"
-                stroke-dasharray="597" stroke-dashoffset="0" stroke-width="11" fill="transparent" stroke-linecap="round"
-                class="transition-all duration-1000 ease-out" />
-
-              <!-- Definitions for color gradients -->
-              <defs>
-                <linearGradient id="cyan-indigo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#00f0ff" />
-                  <stop offset="100%" stop-color="#4f46e5" />
-                </linearGradient>
-                <linearGradient id="green-emerald-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#10b981" />
-                  <stop offset="100%" stop-color="#059669" />
-                </linearGradient>
-                <linearGradient id="orange-amber-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#f97316" />
-                  <stop offset="100%" stop-color="#ea580c" />
-                </linearGradient>
-              </defs>
-            </svg>
-
-            <!-- Central Numeric display -->
-            <div class="absolute inset-0 flex flex-col items-center justify-center">
-              <span id="countdown-days" class="font-mono text-5xl font-black tracking-tighter text-slate-100">00</span>
-              <span class="text-[10px] tracking-widest text-slate-400 font-extrabold uppercase mt-0.5">Days
-                Remaining</span>
+                <!-- Theme Toggle Button -->
+                <button onclick="toggleTheme()"
+                    class="p-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                    <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+                    <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
+                </button>
             </div>
-          </div>
+        </div>
+    </header>
 
-          <!-- Digital Ticker (HH:MM:SS) -->
-          <div
-            class="w-full max-w-xs grid grid-cols-3 gap-2 bg-slate-900/50 border border-slate-800/80 rounded-2xl py-3 px-4 font-mono text-center mb-5">
-            <div>
-              <span id="countdown-hours" class="text-2xl font-bold text-slate-100 tracking-tight">00</span>
-              <span class="block text-[9px] font-bold uppercase text-slate-500 tracking-widest mt-0.5">Hours</span>
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-6">
+
+        <!-- Onboarding & Purpose Banner -->
+        <section id="onboarding-banner"
+            class="relative overflow-hidden rounded-2xl border border-indigo-100 dark:border-indigo-950/50 bg-gradient-to-r from-indigo-500/10 via-brand-100/30 to-purple-500/10 p-5 md:p-6 transition-all duration-300">
+            <button onclick="dismissOnboarding()"
+                class="absolute top-4 right-4 p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-4 pr-8">
+                <div
+                    class="p-3 bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-2xl hidden sm:block shrink-0">
+                    <i data-lucide="sparkles" class="w-8 h-8"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white" id="onboarding-title">Welcome to
+                        Sovereign</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1" id="onboarding-description">
+                        This is your 100% private, self-improvement space. No servers, no tracking, and no external
+                        analytics. Your milestones, reflections, and logs are kept strictly local to this browser,
+                        ensuring complete privacy while you rebuild self-mastery and digital wellness.
+                    </p>
+                    <div
+                        class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                        <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-4 h-4"></i> 100%
+                            Client-Side Protection</span>
+                        <span class="flex items-center gap-1.5"><i data-lucide="heart" class="w-4 h-4"></i>
+                            Compassionate & Reflective Resets</span>
+                        <span class="flex items-center gap-1.5"><i data-lucide="activity" class="w-4 h-4"></i> Real-Time
+                            Habit Awareness</span>
+                    </div>
+                </div>
             </div>
-            <div class="border-x border-slate-800/60">
-              <span id="countdown-minutes" class="text-2xl font-bold text-slate-100 tracking-tight">00</span>
-              <span class="block text-[9px] font-bold uppercase text-slate-500 tracking-widest mt-0.5">Mins</span>
-            </div>
-            <div>
-              <span id="countdown-seconds" class="text-2xl font-bold text-neonCyan tracking-tight">00</span>
-              <span class="block text-[9px] font-bold uppercase text-slate-500 tracking-widest mt-0.5">Secs</span>
-            </div>
-          </div>
+        </section>
 
-          <!-- Dynamic Target Display Description -->
-          <div class="border-t border-slate-900 pt-4 w-full">
-            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Target Milestone Date</p>
-            <p id="target-release-date" class="font-mono text-sm font-bold text-slate-200">...</p>
-          </div>
-        </div>
-      </div>
+        <!-- Trackers Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-      <!-- MOTIVATIONAL ASSISTANCE & QUOTE BOARD -->
-      <div
-        class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800/80 shadow-glass relative overflow-hidden flex flex-col gap-4">
-        <div class="flex items-center gap-3">
-          <div
-            class="w-9 h-9 rounded-xl bg-neonCyan/10 border border-neonCyan/20 flex items-center justify-center text-neonCyan">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 18v-5.25m0 0a3 3 0 00-3-3H9.75a3 3 0 00-3 3h.008zM12 18a.75.75 0 11-.75-.75.75.75 0 01.75.75zM12 21a9 9 0 110-18 9 9 0 010 18z" />
-            </svg>
-          </div>
-          <div>
-            <h4 class="text-xs font-black tracking-widest uppercase text-slate-400">Current Phase Directive</h4>
-            <h3 id="directive-title" class="text-sm font-bold text-slate-100">Maintain Absolute Vigilance</h3>
-          </div>
-        </div>
-
-        <p id="motivational-quote"
-          class="text-xs text-slate-400 leading-relaxed italic border-l-2 border-neonCyan/30 pl-3 py-1 bg-slate-900/20 rounded-r-lg">
-          "The obstacle is the path. Every second of retention is neuroplastic restructuring in real-time."
-        </p>
-
-        <!-- Dynamic Harm Reduction Tip based on block state -->
-        <div id="harm-reduction-quick-tip"
-          class="p-3 bg-slate-900/60 border border-slate-800/60 rounded-xl flex items-start gap-2.5">
-          <span class="text-base">💡</span>
-          <p class="text-[11px] text-slate-300 leading-normal font-medium">
-            Keep devices outside your sleep environment. Automatic cues trigger habit-loops before your conscious
-            prefrontal cortex fully wakes up.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= RIGHT COLUMN: CURRENT SECTOR & ULTIMATE TRACK (lg:col-span-7) ================= -->
-    <section class="lg:col-span-7 flex flex-col gap-6">
-
-      <!-- CURRENT SECTOR STATUS CARD -->
-      <div
-        class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800/80 shadow-glass relative overflow-hidden flex flex-col gap-5">
-        <div class="flex items-center justify-between border-b border-slate-900 pb-4">
-          <div class="flex items-center gap-3">
-            <div id="status-icon-frame"
-              class="w-10 h-10 rounded-xl bg-neonCyan/10 border border-neonCyan/20 flex items-center justify-center text-neonCyan">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-[10px] font-extrabold tracking-widest text-slate-500 uppercase">ACTIVE BLOCK SECTOR</p>
-              <h2 id="current-sector-name" class="text-lg font-black tracking-tight text-slate-100 uppercase">...</h2>
-            </div>
-          </div>
-          <div id="block-type-badge"
-            class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-slate-900 border border-slate-800 text-slate-400">
-            LOADING STATE
-          </div>
-        </div>
-
-        <!-- Sub Progress tracker bar for active block -->
-        <div>
-          <div class="flex justify-between items-center text-xs mb-1.5">
-            <span class="text-slate-400 font-semibold uppercase tracking-wider text-[11px]">Current Block
-              Progress</span>
-            <span id="block-progress-percentage"
-              class="font-mono font-bold text-neonCyan bg-slate-900 px-1.5 py-0.5 rounded">0%</span>
-          </div>
-          <div class="w-full h-3 bg-slate-950 rounded-full border border-slate-900 p-0.5 overflow-hidden">
-            <div id="block-progress-bar"
-              class="h-full bg-gradient-to-r from-neonCyan to-indigo-600 rounded-full transition-all duration-700 ease-out"
-              style="width: 0%"></div>
-          </div>
-        </div>
-
-        <!-- Active Block Stats Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div class="p-3 rounded-2xl bg-slate-900/40 border border-slate-900 text-center">
-            <span class="block text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">Duration</span>
-            <span id="stat-block-duration" class="font-mono text-base font-bold text-slate-100">0 Days</span>
-          </div>
-          <div class="p-3 rounded-2xl bg-slate-900/40 border border-slate-900 text-center">
-            <span class="block text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">Elapsed</span>
-            <span id="stat-block-elapsed" class="font-mono text-base font-bold text-slate-100">0 Days</span>
-          </div>
-          <div class="p-3 rounded-2xl bg-slate-900/40 border border-slate-900 text-center">
-            <span class="block text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">Remaining</span>
-            <span id="stat-block-remaining" class="font-mono text-base font-bold text-slate-100">0 Days</span>
-          </div>
-          <div id="streak-stat-box" class="p-3 rounded-2xl bg-neonGreen/5 border border-neonGreen/10 text-center">
-            <span id="streak-box-label"
-              class="block text-[10px] text-neonGreen font-extrabold uppercase tracking-wider">Streak</span>
-            <span id="stat-safe-streak" class="font-mono text-base font-bold text-neonGreen">0 Days</span>
-          </div>
-        </div>
-
-        <!-- Active Block Directives / Details -->
-        <div class="p-4 bg-slate-900/30 border border-slate-900 rounded-2xl">
-          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400 block mb-1">Focus &
-            Guidelines</span>
-          <p id="current-sector-focus" class="text-xs text-slate-300 leading-relaxed font-medium">...</p>
-        </div>
-      </div>
-
-      <!-- MASTER PROGRESS & ULTIMATE GOAL TRACK -->
-      <div
-        class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800/80 shadow-glass relative overflow-hidden flex flex-col gap-5">
-        <div class="absolute -top-12 -right-12 w-32 h-32 bg-neonPurple/5 blur-[40px] rounded-full pointer-events-none">
-        </div>
-
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-900 pb-4">
-          <div class="flex items-center gap-3">
+            <!-- Tracker A Card: Self-Control (Masturbation Tracker) -->
             <div
-              class="w-10 h-10 rounded-xl bg-gradient-to-br from-neonPurple to-indigo-700 flex items-center justify-center text-white shadow-md">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-6.75a1.125 1.125 0 00-1.125 1.125V18.75m9 0V16.5L12 9.45M12 3a3 3 0 100 6 3 3 0 000-6z" />
-              </svg>
+                class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800/80 p-5 md:p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300">
+                <div>
+                    <!-- Tracker Header -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 bg-rose-500/10 dark:bg-rose-400/10 text-rose-600 dark:text-rose-400 rounded-xl"
+                                id="tracker-a-icon-bg">
+                                <i data-lucide="heart-handshake" class="w-5.5 h-5.5" id="tracker-a-icon"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 dark:text-white text-base md:text-lg"
+                                    id="tracker-a-title">Sober Tracker</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400" id="tracker-a-desc">Time since
+                                    last masturbated</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Counter Block -->
+                    <div class="grid grid-cols-4 gap-2 text-center my-6">
+                        <div
+                            class="bg-slate-50 dark:bg-slate-950/60 p-2.5 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 backdrop-blur-sm">
+                            <div id="tracker_a-days"
+                                class="text-2xl md:text-4xl font-extrabold text-rose-500 dark:text-rose-400 font-mono tracking-tight">
+                                00</div>
+                            <div
+                                class="text-[10px] md:text-xs uppercase font-bold text-slate-400 dark:text-slate-500 mt-1">
+                                Days</div>
+                        </div>
+                        <div
+                            class="bg-slate-50 dark:bg-slate-950/60 p-2.5 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 backdrop-blur-sm">
+                            <div id="tracker_a-hours"
+                                class="text-2xl md:text-4xl font-extrabold text-rose-500 dark:text-rose-400 font-mono tracking-tight">
+                                00</div>
+                            <div
+                                class="text-[10px] md:text-xs uppercase font-bold text-slate-400 dark:text-slate-500 mt-1">
+                                Hours</div>
+                        </div>
+                        <div
+                            class="bg-slate-50 dark:bg-slate-950/60 p-2.5 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 backdrop-blur-sm">
+                            <div id="tracker_a-minutes"
+                                class="text-2xl md:text-4xl font-extrabold text-rose-500 dark:text-rose-400 font-mono tracking-tight">
+                                00</div>
+                            <div
+                                class="text-[10px] md:text-xs uppercase font-bold text-slate-400 dark:text-slate-500 mt-1">
+                                Mins</div>
+                        </div>
+                        <div
+                            class="bg-slate-50 dark:bg-slate-950/60 p-2.5 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 backdrop-blur-sm">
+                            <div id="tracker_a-seconds"
+                                class="text-2xl md:text-4xl font-extrabold text-rose-500 dark:text-rose-400 font-mono tracking-tight">
+                                00</div>
+                            <div
+                                class="text-[10px] md:text-xs uppercase font-bold text-slate-400 dark:text-slate-500 mt-1">
+                                Secs</div>
+                        </div>
+                    </div>
+
+                    <!-- Streaks & Analytics Mini Block -->
+                    <div
+                        class="flex items-center justify-between border-t border-b border-slate-100 dark:border-slate-800/60 py-3.5 my-4 text-xs font-semibold">
+                        <div class="flex items-center gap-2">
+                            <span class="text-slate-400 dark:text-slate-500">Current:</span>
+                            <span class="text-slate-700 dark:text-slate-300" id="tracker_a-current-streak">0m</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-slate-400 dark:text-slate-500 flex items-center gap-1"><i
+                                    data-lucide="award" class="w-3.5 h-3.5 text-amber-500"></i> Best Streak:</span>
+                            <span class="text-indigo-600 dark:text-indigo-400" id="tracker_a-longest-streak">0m</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls & Log -->
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="openResetModal('tracker_a')"
+                            class="flex items-center justify-center gap-2 py-2 px-3 rounded-xl font-semibold text-xs text-white bg-rose-500 hover:bg-rose-600 active:scale-[0.98] transition-all shadow-sm shadow-rose-500/20">
+                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Log Reset
+                        </button>
+                        <button onclick="openEditModal('tracker_a')"
+                            class="flex items-center justify-center gap-2 py-2 px-3 rounded-xl font-semibold text-xs border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 active:scale-[0.98] transition-all">
+                            <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Edit Start Date
+                        </button>
+                    </div>
+
+                    <!-- History Log -->
+                    <div
+                        class="bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/40 rounded-xl p-3">
+                        <h4
+                            class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+                            <span>Recent History (Last 3)</span>
+                            <i data-lucide="clock" class="w-3 h-3"></i>
+                        </h4>
+                        <div id="tracker_a-history-list" class="space-y-2">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-              <p class="text-[10px] font-extrabold tracking-widest text-slate-500 uppercase">ULTRALIGHT MASTER FLIGHT
-              </p>
-              <h2 class="text-base font-black tracking-tight text-slate-100 uppercase">Master Path to January 6, 2027
-              </h2>
+
+            <!-- Tracker B Card: Digital Detox (Porn Tracker) -->
+            <div
+                class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800/80 p-5 md:p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300">
+                <div>
+                    <!-- Tracker Header -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 bg-emerald-500/10 dark:bg-emerald-400/10 text-emerald-600 dark:text-emerald-400 rounded-xl"
+                                id="tracker-b-icon-bg">
+                                <i data-lucide="monitor-off" class="w-5.5 h-5.5" id="tracker-b-icon"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 dark:text-white text-base md:text-lg"
+                                    id="tracker-b-title">Digital Detox</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400" id="tracker-b-desc">Time since
+                                    last watched porn</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Counter Block -->
+                    <div class="grid grid-cols-4 gap-2 text-center my-6">
+                        <div
+                            class="bg-slate-50 dark:bg-slate-950/60 p-2.5 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 backdrop-blur-sm">
+                            <div id="tracker_b-days"
+                                class="text-2xl md:text-4xl font-extrabold text-emerald-500 dark:text-emerald-400 font-mono tracking-tight">
+                                00</div>
+                            <div
+                                class="text-[10px] md:text-xs uppercase font-bold text-slate-400 dark:text-slate-500 mt-1">
+                                Days</div>
+                        </div>
+                        <div
+                            class="bg-slate-50 dark:bg-slate-950/60 p-2.5 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 backdrop-blur-sm">
+                            <div id="tracker_b-hours"
+                                class="text-2xl md:text-4xl font-extrabold text-emerald-500 dark:text-emerald-400 font-mono tracking-tight">
+                                00</div>
+                            <div
+                                class="text-[10px] md:text-xs uppercase font-bold text-slate-400 dark:text-slate-500 mt-1">
+                                Hours</div>
+                        </div>
+                        <div
+                            class="bg-slate-50 dark:bg-slate-950/60 p-2.5 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 backdrop-blur-sm">
+                            <div id="tracker_b-minutes"
+                                class="text-2xl md:text-4xl font-extrabold text-emerald-500 dark:text-emerald-400 font-mono tracking-tight">
+                                00</div>
+                            <div
+                                class="text-[10px] md:text-xs uppercase font-bold text-slate-400 dark:text-slate-500 mt-1">
+                                Mins</div>
+                        </div>
+                        <div
+                            class="bg-slate-50 dark:bg-slate-950/60 p-2.5 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 backdrop-blur-sm">
+                            <div id="tracker_b-seconds"
+                                class="text-2xl md:text-4xl font-extrabold text-emerald-500 dark:text-emerald-400 font-mono tracking-tight">
+                                00</div>
+                            <div
+                                class="text-[10px] md:text-xs uppercase font-bold text-slate-400 dark:text-slate-500 mt-1">
+                                Secs</div>
+                        </div>
+                    </div>
+
+                    <!-- Streaks & Analytics Mini Block -->
+                    <div
+                        class="flex items-center justify-between border-t border-b border-slate-100 dark:border-slate-800/60 py-3.5 my-4 text-xs font-semibold">
+                        <div class="flex items-center gap-2">
+                            <span class="text-slate-400 dark:text-slate-500">Current:</span>
+                            <span class="text-slate-700 dark:text-slate-300" id="tracker_b-current-streak">0m</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-slate-400 dark:text-slate-500 flex items-center gap-1"><i
+                                    data-lucide="award" class="w-3.5 h-3.5 text-amber-500"></i> Best Streak:</span>
+                            <span class="text-indigo-600 dark:text-indigo-400" id="tracker_b-longest-streak">0m</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls & Log -->
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="openResetModal('tracker_b')"
+                            class="flex items-center justify-center gap-2 py-2 px-3 rounded-xl font-semibold text-xs text-white bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] transition-all shadow-sm shadow-emerald-500/20">
+                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Log Reset
+                        </button>
+                        <button onclick="openEditModal('tracker_b')"
+                            class="flex items-center justify-center gap-2 py-2 px-3 rounded-xl font-semibold text-xs border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 active:scale-[0.98] transition-all">
+                            <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Edit Start Date
+                        </button>
+                    </div>
+
+                    <!-- History Log -->
+                    <div
+                        class="bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/40 rounded-xl p-3">
+                        <h4
+                            class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+                            <span>Recent History (Last 3)</span>
+                            <i data-lucide="clock" class="w-3 h-3"></i>
+                        </h4>
+                        <div id="tracker_b-history-list" class="space-y-2">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
 
-          <div class="text-left sm:text-right">
-            <span class="text-[10px] font-bold text-slate-500 block uppercase">Ultimate Goal Target</span>
-            <span class="font-mono text-xs font-black text-neonPurple uppercase">January 6, 2027</span>
-          </div>
-        </div>
+        </section>
 
-        <!-- Master Dual-color Progress Bar -->
-        <div>
-          <div class="flex justify-between items-center text-xs mb-1.5">
-            <div class="flex items-center gap-1.5 text-slate-400 font-semibold uppercase tracking-wider text-[11px]">
-              <span>Overall Plan Accomplished</span>
-              <span id="master-progress-details" class="font-mono text-slate-500 font-normal">0 / 183 Days</span>
+        <!-- Insights & Reflective Journal Grid -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Supportive Insights Panel (1 Column) -->
+            <div
+                class="lg:col-span-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+                <h3 class="font-bold text-slate-900 dark:text-white flex items-center gap-2 text-base">
+                    <i data-lucide="sparkles" class="w-5 h-5 text-indigo-500"></i>
+                    <span id="insights-panel-title">Mindful Tools</span>
+                </h3>
+                <div class="space-y-3.5">
+                    <div
+                        class="p-3 bg-indigo-50/60 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30 rounded-xl">
+                        <h4
+                            class="font-bold text-xs text-indigo-700 dark:text-indigo-400 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+                            <i data-lucide="compass" class="w-3.5 h-3.5"></i> Urge Surfing
+                        </h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">
+                            Urges are like waves. They rise, peak, and inevitably subside. Instead of fighting it,
+                            breathe deeply, observe the feeling without judgment, and "ride" it until it dissolves.
+                        </p>
+                    </div>
+                    <div
+                        class="p-3 bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 rounded-xl">
+                        <h4
+                            class="font-bold text-xs text-emerald-700 dark:text-emerald-400 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+                            <i data-lucide="activity" class="w-3.5 h-3.5"></i> The HALT Rule
+                        </h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">
+                            Most cravings strike when you are <strong>H</strong>ungry, <strong>A</strong>ngry,
+                            <strong>L</strong>onely, or <strong>T</strong>ired. When an urge rises, check in with your
+                            physical needs first.
+                        </p>
+                    </div>
+                    <div
+                        class="p-3 bg-purple-50/60 dark:bg-purple-950/20 border border-purple-100 dark:border-purple-900/30 rounded-xl">
+                        <h4
+                            class="font-bold text-xs text-purple-700 dark:text-purple-400 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+                            <i data-lucide="timer" class="w-3.5 h-3.5"></i> The 10-Minute Pause
+                        </h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">
+                            Tell yourself: "I can choose to engage, but I will wait exactly 10 minutes first." Drink a
+                            glass of water or walk outside. Usually, the urge passes.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <span id="master-progress-percentage"
-              class="font-mono font-black text-neonPurple bg-neonPurple/10 border border-neonPurple/20 px-1.5 py-0.5 rounded">0.00%</span>
-          </div>
-          <div class="w-full h-4 bg-slate-950 rounded-full border border-slate-900 p-0.5 overflow-hidden shadow-inner">
-            <div id="master-progress-bar"
-              class="h-full bg-gradient-to-r from-indigo-600 via-neonPurple to-neonCyan rounded-full transition-all duration-1000 ease-out shadow-inner"
-              style="width: 0%"></div>
-          </div>
-        </div>
 
-        <!-- Overall program milestones list -->
-        <div>
-          <span class="text-[10px] font-black tracking-widest text-slate-500 uppercase block mb-3">System
-            Milestones</span>
-          <div id="milestones-track" class="grid grid-cols-2 sm:grid-cols-5 gap-2">
-            <!-- Dynamic list of milestone badges populated by JS -->
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+            <!-- Private Reflective Journal & Mood Log (2 Columns) -->
+            <div
+                class="lg:col-span-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-slate-900 dark:text-white flex items-center gap-2 text-base">
+                            <i data-lucide="book-open" class="w-5 h-5 text-indigo-500"></i>
+                            <span id="journal-title">Reflective Daily Journal</span>
+                        </h3>
+                        <span
+                            class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 py-1 px-2.5 rounded-full">
+                            100% Offline
+                        </span>
+                    </div>
 
-  <!-- ================= VISUAL ROADMAP/TIMELINE SECTION ================= -->
-  <section class="max-w-7xl mx-auto px-4 mt-8 sm:px-8">
-    <div
-      class="p-6 sm:p-8 rounded-3xl bg-slate-950/80 border border-slate-800/80 shadow-glass relative overflow-hidden">
+                    <!-- Write Journal Entry -->
+                    <form onsubmit="addJournalEntry(event)" class="space-y-3">
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <span
+                                class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">How's
+                                your mind today?</span>
+                            <div class="flex gap-1.5">
+                                <button type="button" onclick="setJournalMood('calm')" id="mood-calm"
+                                    class="mood-btn px-2.5 py-1 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-500 hover:text-slate-950 dark:hover:text-white active:scale-95 transition-all">🧘
+                                    Calm</button>
+                                <button type="button" onclick="setJournalMood('strong')" id="mood-strong"
+                                    class="mood-btn px-2.5 py-1 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-500 hover:text-slate-950 dark:hover:text-white active:scale-95 transition-all">💪
+                                    Strong</button>
+                                <button type="button" onclick="setJournalMood('anxious')" id="mood-anxious"
+                                    class="mood-btn px-2.5 py-1 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-500 hover:text-slate-950 dark:hover:text-white active:scale-95 transition-all">🌪️
+                                    Anxious</button>
+                                <button type="button" onclick="setJournalMood('tired')" id="mood-tired"
+                                    class="mood-btn px-2.5 py-1 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-500 hover:text-slate-950 dark:hover:text-white active:scale-95 transition-all">😴
+                                    Tired</button>
+                            </div>
+                        </div>
 
-      <!-- Section Header -->
-      <div
-        class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-900 pb-5 mb-6 gap-4">
-        <div>
-          <h2 class="text-xl font-black tracking-tight text-slate-100 uppercase flex items-center gap-2">
-            <svg class="w-6 h-6 text-neonCyan" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12.75 3.03v.568c0 .334.148.65.405.864l4.038 3.332a.75.75 0 01.127 1.104l-3.324 3.962a1.15 1.15 0 01-.84.397h-.828v2.406c0 .243-.102.474-.282.639L8.14 19.36a.75.75 0 01-1.012-1.104l3.14-2.879A1.15 1.15 0 0010.5 14.65v-2.406h-.828a1.15 1.15 0 01-.84-.397L5.508 7.885a.75.75 0 01.127-1.104l4.038-3.332a1.15 1.15 0 01.405-.864V3.03" />
-            </svg>
-            <span>183-Day Structured Harm-Reduction Timeline</span>
-          </h2>
-          <p class="text-xs text-slate-400 mt-1">
-            Five strategic expansion phases designed to systematically down-regulate dopamine receptor density and
-            restore neurochemical baselines.
-          </p>
-        </div>
+                        <div class="relative">
+                            <textarea id="journal-input" rows="3" required
+                                class="w-full rounded-xl border border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-950/40 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 placeholder-slate-400 dark:placeholder-slate-500"
+                                placeholder="Write down your intentions, feelings, victories, or warnings..."></textarea>
+                        </div>
 
-        <div class="flex flex-wrap gap-3 text-xs font-semibold">
-          <div class="flex items-center gap-1.5 text-neonGreen">
-            <span class="w-2.5 h-2.5 rounded-full bg-neonGreen"></span>
-            <span>Completed</span>
-          </div>
-          <div class="flex items-center gap-1.5 text-neonCyan animate-pulse">
-            <span class="w-2.5 h-2.5 rounded-full bg-neonCyan"></span>
-            <span>Active Sector</span>
-          </div>
-          <div class="flex items-center gap-1.5 text-slate-500">
-            <span class="w-2.5 h-2.5 rounded-full bg-slate-700"></span>
-            <span>Locked Sector</span>
-          </div>
-        </div>
-      </div>
+                        <div class="flex justify-end">
+                            <button type="submit"
+                                class="flex items-center gap-1.5 py-1.5 px-4 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-sm">
+                                <i data-lucide="plus" class="w-3.5 h-3.5"></i> Save Entry
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
-      <!-- Timeline Board Grid -->
-      <div id="timeline-board" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Dynically populated timeline items inside JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= RULES & STRATEGIES SECTION ================= -->
-  <section class="max-w-7xl mx-auto px-4 mt-8 sm:px-8">
-    <div class="p-6 sm:p-8 rounded-3xl bg-slate-950/80 border border-slate-800/80 shadow-glass">
-
-      <div class="border-b border-slate-900 pb-5 mb-6">
-        <h2 class="text-xl font-black tracking-tight text-slate-100 uppercase flex items-center gap-2">
-          <svg class="w-6 h-6 text-neonOrange" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0110.5 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0113.5 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-          </svg>
-          <span>Harm-Reduction Guidelines & Mastery Blueprint</span>
-        </h2>
-        <p class="text-xs text-slate-400 mt-1">
-          A structured guide outlining the strict operational boundaries of intentional releases and tactics for
-          handling intense cravings.
-        </p>
-      </div>
-
-      <!-- Accordion Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-        <!-- Accordion 1: No Screens / Porn -->
-        <div class="border border-slate-850 bg-slate-900/20 rounded-2xl overflow-hidden transition-all duration-300">
-          <button onclick="toggleAccordion('acc-1')"
-            class="w-full flex items-center justify-between p-4 bg-slate-900/40 hover:bg-slate-900/60 transition text-left focus:outline-none">
-            <div class="flex items-center gap-3">
-              <span class="text-lg">🚫</span>
-              <span class="text-xs sm:text-sm font-bold text-slate-200 uppercase tracking-wider">Golden Rule 1: Zero
-                Screen/Media Stimulation</span>
+                <!-- Saved Journal Log -->
+                <div class="mt-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
+                    <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2.5">
+                        Recent Reflections</h4>
+                    <div id="journal-list" class="space-y-3 max-h-[160px] overflow-y-auto pr-1">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
             </div>
-            <svg id="arrow-acc-1" class="w-4 h-4 text-slate-400 transform transition-transform duration-300" fill="none"
-              stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-          </button>
-          <div id="content-acc-1"
-            class="hidden p-4 border-t border-slate-900/60 bg-slate-950/30 text-xs text-slate-400 leading-relaxed space-y-2">
-            <p>
-              When a conscious release day arrives, the release must be <strong class="text-neonCyan">100% screen-free
-                and visual-free</strong>. This means absolutely zero pornography, erotic literature, social media,
-              dating apps, or simulated cues.
-            </p>
-            <p>
-              The harm-reduction model relies on divorcing the dopamine rush of release from the hyper-stimulating
-              reward loop of internet pornography. This allows neural pathways to down-regulate and heal, restoring
-              physical sensitivity and real-world connection.
-            </p>
-          </div>
-        </div>
 
-        <!-- Accordion 2: Strict Window Limit -->
-        <div class="border border-slate-850 bg-slate-900/20 rounded-2xl overflow-hidden transition-all duration-300">
-          <button onclick="toggleAccordion('acc-2')"
-            class="w-full flex items-center justify-between p-4 bg-slate-900/40 hover:bg-slate-900/60 transition text-left focus:outline-none">
-            <div class="flex items-center gap-3">
-              <span class="text-lg">⏱️</span>
-              <span class="text-xs sm:text-sm font-bold text-slate-200 uppercase tracking-wider">Golden Rule 2: Strict
-                Window Limits</span>
-            </div>
-            <svg id="arrow-acc-2" class="w-4 h-4 text-slate-400 transform transition-transform duration-300" fill="none"
-              stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-          </button>
-          <div id="content-acc-2"
-            class="hidden p-4 border-t border-slate-900/60 bg-slate-950/30 text-xs text-slate-400 leading-relaxed space-y-2">
-            <p>
-              A release day is <strong class="text-neonOrange">not a multi-session free pass</strong>. Treat it with the
-              discipline of a surgical procedure. Establish a strict time frame (e.g., maximum 1 hour, single release).
-            </p>
-            <p>
-              Once completed, close the window, wash, and transition immediately into a productive physical task
-              (workout, meal prep, tidying). Keeping the window constrained prevents the brain from slipping back into a
-              continuous binge cycle.
-            </p>
-          </div>
-        </div>
+        </section>
+    </main>
 
-        <!-- Accordion 3: Chaser Effect Warning -->
-        <div class="border border-slate-850 bg-slate-900/20 rounded-2xl overflow-hidden transition-all duration-300">
-          <button onclick="toggleAccordion('acc-3')"
-            class="w-full flex items-center justify-between p-4 bg-slate-900/40 hover:bg-slate-900/60 transition text-left focus:outline-none">
-            <div class="flex items-center gap-3">
-              <span class="text-lg">⚡</span>
-              <span class="text-xs sm:text-sm font-bold text-slate-200 uppercase tracking-wider">The Chaser Effect
-                Warning</span>
-            </div>
-            <svg id="arrow-acc-3" class="w-4 h-4 text-slate-400 transform transition-transform duration-300" fill="none"
-              stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-          </button>
-          <div id="content-acc-3"
-            class="hidden p-4 border-t border-slate-900/60 bg-slate-950/30 text-xs text-slate-400 leading-relaxed space-y-2">
-            <p>
-              The <strong class="text-red-400">Chaser Effect</strong> refers to the acute spike in cravings that occurs
-              within 24 to 48 hours following a release. Because dopamine levels fluctuate, the brain is highly
-              desperate to return to peak stimulation.
-            </p>
-            <p>
-              Recognize that the two days starting immediately after a release (e.g. July 13th, 18th, 23rd etc)
-              represent the <span class="text-red-400 font-bold uppercase">highest risk zones</span> of the entire
-              schedule. Expect urges, plan intense social or physical activities, and pre-commit to a zero-screen
-              workspace.
-            </p>
-          </div>
-        </div>
-
-        <!-- Accordion 4: Urge Surfing Strategy -->
-        <div class="border border-slate-850 bg-slate-900/20 rounded-2xl overflow-hidden transition-all duration-300">
-          <button onclick="toggleAccordion('acc-4')"
-            class="w-full flex items-center justify-between p-4 bg-slate-900/40 hover:bg-slate-900/60 transition text-left focus:outline-none">
-            <div class="flex items-center gap-3">
-              <span class="text-lg">🌊</span>
-              <span class="text-xs sm:text-sm font-bold text-slate-200 uppercase tracking-wider">Mindfulness Tactic:
-                Urge Surfing</span>
-            </div>
-            <svg id="arrow-acc-4" class="w-4 h-4 text-slate-400 transform transition-transform duration-300" fill="none"
-              stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-          </button>
-          <div id="content-acc-4"
-            class="hidden p-4 border-t border-slate-900/60 bg-slate-950/30 text-xs text-slate-400 leading-relaxed space-y-2">
-            <p>
-              An urge is like an ocean wave: it builds up, reaches a peak of intensity, and then naturally breaks and
-              recedes. Trying to suppress an urge is like placing a dam against a wave; it builds pressure until it
-              bursts.
-            </p>
-            <p>
-              Instead, <strong>Surf the Urge</strong>:
-            </p>
-            <ul class="list-disc pl-5 space-y-1 mt-1 font-medium">
-              <li>Acknowledge the physical sensation (tightness, restlessness) without judgment.</li>
-              <li>Breathe deeply, keeping focus strictly on physical breathing.</li>
-              <li>Observe the wave rise, crest, and dissolve. Cravings rarely persist beyond 10-15 minutes of
-                non-combative observation.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SOS MODAL & INTEGRATED GUIDED BREATHING ================= -->
-  <div id="sos-modal"
-    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden transition-all duration-300">
-    <div
-      class="w-full max-w-lg rounded-3xl bg-slate-900 border border-slate-800 p-6 sm:p-8 shadow-2xl relative overflow-hidden flex flex-col items-center">
-
-      <!-- Ambient light effect behind modal -->
-      <div class="absolute -top-16 -left-16 w-36 h-36 bg-red-500/10 blur-[40px] rounded-full pointer-events-none"></div>
-
-      <!-- Modal Close Button -->
-      <button onclick="closeSosModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
-      <!-- Step 1: Initial SOS Intercept -->
-      <div id="sos-step-intercept" class="w-full flex flex-col items-center text-center">
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-900 py-6 mt-12 bg-white dark:bg-slate-950">
         <div
-          class="w-14 h-14 bg-red-500/10 rounded-2xl border border-red-500/30 flex items-center justify-center text-red-400 mb-4 animate-bounce">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-          </svg>
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-xs text-slate-400 dark:text-slate-500 font-medium">
+            <p>Sovereign Wellness Companion &copy; 2026. Absolutely no cookies or analytical tracking used.</p>
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-500"></i>
+                    Localized Storage Encrypted by Default</span>
+                <button onclick="clearAllData()"
+                    class="text-red-500 hover:text-red-600 hover:underline flex items-center gap-1 transition-all">
+                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Purge All Local Data
+                </button>
+            </div>
         </div>
+    </footer>
 
-        <h3 class="text-xl font-black tracking-tight text-slate-100 uppercase mb-2">Urge Detected // Intercept Engaged
-        </h3>
-        <p class="text-xs text-slate-400 leading-relaxed mb-6 max-w-md">
-          Stop. Place both hands flat on a surface or your lap. Do not search, do not close doors, do not grab devices.
-          You are safe. This is just a chemical spike in your brain.
-        </p>
+    <!-- MODAL: Reflection on Reset (Instead of a prompt or simple alert) -->
+    <div id="reset-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden transition-all duration-300">
+        <div
+            class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl p-5 md:p-6 space-y-4 transform scale-95 transition-all">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-rose-500/10 text-rose-500 rounded-xl">
+                    <i data-lucide="rotate-ccw" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Reflect & Reset</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Every setback is a data point, not a failure.
+                        Be gentle with yourself.</p>
+                </div>
+            </div>
 
-        <div class="flex flex-col sm:flex-row gap-3 w-full">
-          <button onclick="startUrgeBreathing()"
-            class="flex-1 py-3 bg-neonCyan hover:bg-cyan-400 text-slate-950 font-extrabold text-xs tracking-widest uppercase rounded-2xl shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 flex items-center justify-center gap-1.5">
-            <span>🏄 SURF THE URGE (1 MIN BREATH)</span>
-          </button>
-          <button onclick="closeSosModal()"
-            class="flex-1 py-3 bg-slate-950 hover:bg-slate-800 text-slate-400 hover:text-white font-bold text-xs tracking-widest uppercase rounded-2xl border border-slate-800 transition">
-            <span>I am back in control</span>
-          </button>
+            <div class="space-y-4 py-2">
+                <!-- Mood/Feeling Selector -->
+                <div>
+                    <label
+                        class="block text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">How
+                        were you feeling?</label>
+                    <div class="grid grid-cols-3 gap-2" id="reset-feeling-grid">
+                        <button onclick="selectResetFeeling('Stressed')"
+                            class="feeling-tag py-2 px-1 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-950/60 text-slate-600 dark:text-slate-300 transition-all">😫
+                            Stressed</button>
+                        <button onclick="selectResetFeeling('Bored')"
+                            class="feeling-tag py-2 px-1 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-950/60 text-slate-600 dark:text-slate-300 transition-all">🥱
+                            Bored</button>
+                        <button onclick="selectResetFeeling('Lonely')"
+                            class="feeling-tag py-2 px-1 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-950/60 text-slate-600 dark:text-slate-300 transition-all">😔
+                            Lonely</button>
+                        <button onclick="selectResetFeeling('Tired')"
+                            class="feeling-tag py-2 px-1 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-950/60 text-slate-600 dark:text-slate-300 transition-all">😴
+                            Tired</button>
+                        <button onclick="selectResetFeeling('Anxious')"
+                            class="feeling-tag py-2 px-1 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-950/60 text-slate-600 dark:text-slate-300 transition-all">🌪️
+                            Anxious</button>
+                        <button onclick="selectResetFeeling('Accident')"
+                            class="feeling-tag py-2 px-1 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-950/60 text-slate-600 dark:text-slate-300 transition-all">⚡
+                            Triggered</button>
+                    </div>
+                </div>
+
+                <!-- Notes Input -->
+                <div>
+                    <label
+                        class="block text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">Reflective
+                        thoughts (Highly recommended)</label>
+                    <textarea id="reset-reflection-note" rows="3"
+                        class="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-rose-400 placeholder-slate-400 dark:placeholder-slate-500"
+                        placeholder="What triggered you? How can we prevent this scenario in the future? (e.g., put phone in another room at night)"></textarea>
+                </div>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="flex gap-3">
+                <button onclick="closeResetModal()"
+                    class="flex-1 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold text-xs text-slate-700 dark:text-slate-300 transition-all">
+                    Cancel & Maintain Streak
+                </button>
+                <button onclick="confirmReset()"
+                    class="flex-1 py-2.5 rounded-xl font-bold text-xs text-white bg-rose-500 hover:bg-rose-600 active:scale-[0.98] transition-all shadow-md shadow-rose-500/20">
+                    Confirm Reset & Log
+                </button>
+            </div>
         </div>
-      </div>
-
-      <!-- Step 2: Guided Breathing Box -->
-      <div id="sos-step-breathing" class="w-full flex flex-col items-center text-center hidden">
-        <h3 class="text-lg font-black tracking-tight text-neonCyan uppercase mb-1">Guided Urge Wave Surfer</h3>
-        <p id="breathing-stage-instruction" class="text-xs text-slate-400 tracking-wider uppercase font-bold mb-12">
-          Click below to start box breathing</p>
-
-        <!-- Dynamic Expanding Node -->
-        <div class="relative w-40 h-40 flex items-center justify-center mb-16">
-          <div id="breathing-circle"
-            class="breathing-node w-12 h-12 rounded-full flex items-center justify-center text-neonCyan"></div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <span id="breathing-counter" class="font-mono text-3xl font-black text-slate-100">4</span>
-          </div>
-        </div>
-
-        <p id="breathing-advice" class="text-[11px] text-slate-400 max-w-sm leading-relaxed mb-6 italic">
-          "Observe the physical urge. Do not fight it. Let it ride alongside your deep, steady breathing."
-        </p>
-
-        <div class="flex items-center gap-3 w-full">
-          <button id="breathing-ctrl-btn" onclick="toggleBreathingLoop()"
-            class="flex-1 py-2.5 bg-slate-950 hover:bg-slate-800 text-neonCyan hover:text-white border border-neonCyan/20 rounded-xl text-xs font-bold tracking-widest uppercase transition">
-            START EXERCISE
-          </button>
-          <button onclick="stopAndResetBreathing()"
-            class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-500 hover:text-slate-300 rounded-xl text-xs font-bold tracking-widest uppercase transition">
-            Exit
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= STAGE DETAIL POPUP DRAWER ================= -->
-  <div id="stage-drawer"
-    class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-slate-950 border-l border-slate-800 p-6 sm:p-8 shadow-2xl transform translate-x-full transition-transform duration-500 ease-in-out hidden flex flex-col justify-between">
-    <div class="flex flex-col gap-6">
-
-      <!-- Drawer Header -->
-      <div class="flex items-center justify-between border-b border-slate-900 pb-4">
-        <div>
-          <span id="drawer-tag"
-            class="px-2 py-0.5 rounded text-[10px] font-black uppercase text-neonCyan bg-neonCyan/10 border border-neonCyan/20">Phase
-            details</span>
-          <h3 id="drawer-title" class="text-lg font-black tracking-tight text-slate-100 uppercase mt-2">...</h3>
-        </div>
-        <button onclick="closeStageDrawer()" class="p-1 text-slate-400 hover:text-white transition">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <!-- Drawer Content -->
-      <div class="space-y-4">
-        <div class="p-3 bg-slate-900/40 rounded-xl border border-slate-900 flex justify-between items-center text-xs">
-          <span class="text-slate-400 font-semibold uppercase">Sector Type:</span>
-          <span id="drawer-type" class="font-bold tracking-wider uppercase text-neonCyan">Retention Cycle</span>
-        </div>
-        <div class="p-3 bg-slate-900/40 rounded-xl border border-slate-900 flex justify-between items-center text-xs">
-          <span class="text-slate-400 font-semibold uppercase">Calendar Schedule:</span>
-          <span id="drawer-dates" class="font-mono text-slate-200">Jul 8 - Jul 11</span>
-        </div>
-        <div class="p-3 bg-slate-900/40 rounded-xl border border-slate-900 flex justify-between items-center text-xs">
-          <span class="text-slate-400 font-semibold uppercase">Sector Duration:</span>
-          <span id="drawer-duration" class="font-bold text-slate-200">4 Days</span>
-        </div>
-
-        <div class="pt-4 border-t border-slate-900">
-          <span class="text-[10px] font-black tracking-wider text-slate-500 uppercase block mb-1">Focus &
-            Guidelines</span>
-          <p id="drawer-focus" class="text-xs text-slate-300 leading-relaxed font-medium">...</p>
-        </div>
-      </div>
     </div>
 
-    <!-- Drawer Footer -->
-    <div class="pt-6 border-t border-slate-900">
-      <button onclick="closeStageDrawer()"
-        class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-bold text-xs tracking-wider uppercase rounded-xl border border-slate-800 transition">
-        Close Details
-      </button>
+    <!-- MODAL: Edit Start Date -->
+    <div id="edit-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden transition-all duration-300">
+        <div
+            class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl p-5 md:p-6 space-y-4 transform scale-95 transition-all">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-indigo-500/10 text-indigo-500 rounded-xl">
+                    <i data-lucide="calendar" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Adjust Starting Milestone</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Set the precise date and time you started this
+                        streak.</p>
+                </div>
+            </div>
+
+            <!-- Datetime Form -->
+            <div class="space-y-4 py-2">
+                <div>
+                    <label
+                        class="block text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">Select
+                        Start Date & Time</label>
+                    <input type="datetime-local" id="edit-datetime-input" required
+                        class="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 text-slate-800 dark:text-white font-mono">
+                </div>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="flex gap-3">
+                <button onclick="closeEditModal()"
+                    class="flex-1 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold text-xs text-slate-700 dark:text-slate-300 transition-all">
+                    Cancel
+                </button>
+                <button onclick="confirmEdit()"
+                    class="flex-1 py-2.5 rounded-xl font-bold text-xs text-white bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-md">
+                    Save Changes
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- Audio feedback support status -->
-  <span id="sound-chk" class="hidden">enabled</span>
+    <!-- MAIN JAVASCRIPT APPLICATION -->
+    <script>
+        // State Schema & Management
+        let state = {
+            tracker_a: {
+                startTime: new Date().toISOString(),
+                longestStreak: 0, // in milliseconds
+                history: [] // [{ timestamp, feeling, note }]
+            },
+            tracker_b: {
+                startTime: new Date().toISOString(),
+                longestStreak: 0,
+                history: []
+            },
+            privacyMode: false,
+            darkMode: true,
+            onboardingDismissed: false,
+            journal: [] // [{ id, timestamp, text, mood }]
+        };
 
-  <!-- ========================================================================= -->
-  <!-- ======================== CORE JAVASCRIPT ENGINE ======================== -->
-  <!-- ========================================================================= -->
-  <script>
-    // Audio synthesis setup using web audio API (pure client synthesizer, no external assets!)
-    let audioCtx = null;
-    function playChime(freq = 440, type = 'sine', duration = 0.3, volVal = 0.08) {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        osc.type = type;
-        gain.gain.setValueAtTime(volVal, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {
-        console.warn("Audio Context blocked or not supported in this environment.", e);
-      }
-    }
+        // Active resets trackers tracking variables
+        let activeResetTracker = null;
+        let activeResetFeeling = null;
+        let activeEditTracker = null;
+        let activeJournalMood = null;
 
-    // --- Helper function to create Date objects in exact LOCAL timezone ---
-    function createLocalDate(year, month, day, hour = 0, minute = 0, second = 0) {
-      return new Date(year, month - 1, day, hour, minute, second);
-    }
-
-    // --- Dynamic timeline program configuration ---
-    const STAGES = [
-      {
-        id: "p1c1",
-        phase: 1,
-        cycleNum: 1,
-        name: "Phase 1: Cycle 1",
-        subtitle: "Dopamine Receptor Reset",
-        type: "cycle",
-        start: createLocalDate(2026, 7, 8, 0, 0, 0),
-        end: createLocalDate(2026, 7, 11, 23, 59, 59),
-        releaseDate: createLocalDate(2026, 7, 12, 0, 0, 0),
-        duration: 4,
-        focus: "Establishing pure momentum. Break auto-piloting habits. Keep phone out of bed.",
-        tips: "Minimize idle time, increase mechanical focus."
-      },
-      {
-        id: "r1",
-        phase: 1,
-        cycleNum: 1,
-        name: "P1: Cycle 1 Release",
-        subtitle: "Conscious Release Window",
-        type: "release",
-        start: createLocalDate(2026, 7, 12, 0, 0, 0),
-        end: createLocalDate(2026, 7, 12, 23, 59, 59),
-        nextStart: createLocalDate(2026, 7, 13, 0, 0, 0),
-        duration: 1,
-        focus: "CONSCIOUS RELEASE: Strictly screen-free. Set maximum 2 hour window. Guard against binging.",
-        tips: "Prevent the immediate Chaser effect within 48 hours."
-      },
-      {
-        id: "p1c2",
-        phase: 1,
-        cycleNum: 2,
-        name: "Phase 1: Cycle 2",
-        subtitle: "Stabilizing the Chemistry",
-        type: "cycle",
-        start: createLocalDate(2026, 7, 13, 0, 0, 0),
-        end: createLocalDate(2026, 7, 16, 23, 59, 59),
-        releaseDate: createLocalDate(2026, 7, 17, 0, 0, 0),
-        duration: 4,
-        focus: "Strengthening neural circuits. Physical recovery starting to build. Transmute sexual energy.",
-        tips: "Go for a short jog or perform 25 pushups during peak urges."
-      },
-      {
-        id: "r2",
-        phase: 1,
-        cycleNum: 2,
-        name: "P1: Cycle 2 Release",
-        subtitle: "Conscious Release Window",
-        type: "release",
-        start: createLocalDate(2026, 7, 17, 0, 0, 0),
-        end: createLocalDate(2026, 7, 17, 23, 59, 59),
-        nextStart: createLocalDate(2026, 7, 18, 0, 0, 0),
-        duration: 1,
-        focus: "CONSCIOUS RELEASE: Mindful awareness. Reconnect with physical sensations. No technology.",
-        tips: "Clean window of maximum 1-hour. Prepare for Cycle 3."
-      },
-      {
-        id: "p1c3",
-        phase: 1,
-        cycleNum: 3,
-        name: "Phase 1: Cycle 3",
-        subtitle: "The Baseline Anchor",
-        type: "cycle",
-        start: createLocalDate(2026, 7, 18, 0, 0, 0),
-        end: createLocalDate(2026, 7, 21, 23, 59, 59),
-        releaseDate: createLocalDate(2026, 7, 22, 0, 0, 0),
-        duration: 4,
-        focus: "Anchor the foundational habit. Preparation to double retention duration in Phase 2.",
-        tips: "Review your reasons for starting. Focus on breathing techniques."
-      },
-      {
-        id: "r3",
-        phase: 1,
-        cycleNum: 3,
-        name: "P1: Cycle 3 Release",
-        subtitle: "Conscious Release Window",
-        type: "release",
-        start: createLocalDate(2026, 7, 22, 0, 0, 0),
-        end: createLocalDate(2026, 7, 22, 23, 59, 59),
-        nextStart: createLocalDate(2026, 7, 23, 0, 0, 0),
-        duration: 1,
-        focus: "CONSCIOUS RELEASE: Mindful transition release. Seal the 4-day loop cleanly with zero screens.",
-        tips: "This is the final release before entering the 7-day Weekly extensions."
-      },
-      {
-        id: "p2c1",
-        phase: 2,
-        cycleNum: 1,
-        name: "Phase 2: Cycle 1",
-        subtitle: "Weekly Extension",
-        type: "cycle",
-        start: createLocalDate(2026, 7, 23, 0, 0, 0),
-        end: createLocalDate(2026, 7, 29, 23, 59, 59),
-        releaseDate: createLocalDate(2026, 7, 30, 0, 0, 0),
-        duration: 7,
-        focus: "Expanding capacity. First semen retention block of a full 7 days. Transmute via vigorous exercise.",
-        tips: "Acknowledge the physical energy expansion. Do not sit idle."
-      },
-      {
-        id: "r4",
-        phase: 2,
-        cycleNum: 1,
-        name: "P2: Cycle 1 Release",
-        subtitle: "Conscious Release Window",
-        type: "release",
-        start: createLocalDate(2026, 7, 30, 0, 0, 0),
-        end: createLocalDate(2026, 7, 30, 23, 59, 59),
-        nextStart: createLocalDate(2026, 7, 31, 0, 0, 0),
-        duration: 1,
-        focus: "CONSCIOUS RELEASE: Maintain boundaries. Enjoy natural sensitivity. Avoid mental loop replays.",
-        tips: "Beware immediate hormonal crash triggers."
-      },
-      {
-        id: "p2c2",
-        phase: 2,
-        cycleNum: 2,
-        name: "Phase 2: Cycle 2",
-        subtitle: "Stabilizing the Weekly",
-        type: "cycle",
-        start: createLocalDate(2026, 7, 31, 0, 0, 0),
-        end: createLocalDate(2026, 8, 6, 23, 59, 59),
-        releaseDate: createLocalDate(2026, 8, 7, 0, 0, 0),
-        duration: 7,
-        focus: "Solidifying the 7-day mark. Clear mental skin. Physical energy surges. Focus on study/projects.",
-        tips: "Use cold water splashes when an urge builds."
-      },
-      {
-        id: "r5",
-        phase: 2,
-        cycleNum: 2,
-        name: "P2: Cycle 2 Release",
-        subtitle: "Conscious Release Window",
-        type: "release",
-        start: createLocalDate(2026, 8, 7, 0, 0, 0),
-        end: createLocalDate(2026, 8, 7, 23, 59, 59),
-        nextStart: createLocalDate(2026, 8, 8, 0, 0, 0),
-        duration: 1,
-        focus: "CONSCIOUS RELEASE: Mindful closeout. Prepare mentally for entering double digit (14-day) blocks.",
-        tips: "Close the window completely before 23:59. Stay clean."
-      },
-      {
-        id: "p3c1",
-        phase: 3,
-        cycleNum: 1,
-        name: "Phase 3: Cycle 1",
-        subtitle: "Fortnightly Ascension",
-        type: "cycle",
-        start: createLocalDate(2026, 8, 8, 0, 0, 0),
-        end: createLocalDate(2026, 8, 21, 23, 59, 59),
-        releaseDate: createLocalDate(2026, 8, 22, 0, 0, 0),
-        duration: 14,
-        focus: "The Fortnight Mark. Substantial brain chemical rewriting. Channel mental fire into building value.",
-        tips: "Ensure deep physical hydration and regular stretching/mobility."
-      },
-      {
-        id: "r6",
-        phase: 3,
-        cycleNum: 1,
-        name: "P3: Cycle 1 Release",
-        subtitle: "Conscious Release Window",
-        type: "release",
-        start: createLocalDate(2026, 8, 22, 0, 0, 0),
-        end: createLocalDate(2026, 8, 22, 23, 59, 59),
-        nextStart: createLocalDate(2026, 8, 23, 0, 0, 0),
-        duration: 1,
-        focus: "CONSCIOUS RELEASE: Highly critical. Post-14-day Chaser is intense. Minimize technology access.",
-        tips: "Establish zero-screen pre-commitments for the next 48 hours."
-      },
-      {
-        id: "p3c2",
-        phase: 3,
-        cycleNum: 2,
-        name: "Phase 3: Cycle 2",
-        subtitle: "Stabilizing Fortnightly",
-        type: "cycle",
-        start: createLocalDate(2026, 8, 23, 0, 0, 0),
-        end: createLocalDate(2026, 9, 5, 23, 59, 59),
-        releaseDate: createLocalDate(2026, 9, 6, 0, 0, 0),
-        duration: 14,
-        focus: "Double-down on the fortnightly rhythm. Mental clarity peaks. Sleep quality is heavily restored.",
-        tips: "Limit visual exposure in gym or social settings. Conserve mental energy."
-      },
-      {
-        id: "r7",
-        phase: 3,
-        cycleNum: 2,
-        name: "P3: Cycle 2 Release",
-        subtitle: "Conscious Release Window",
-        type: "release",
-        start: createLocalDate(2026, 9, 6, 0, 0, 0),
-        end: createLocalDate(2026, 9, 6, 23, 59, 59),
-        nextStart: createLocalDate(2026, 9, 7, 0, 0, 0),
-        duration: 1,
-        focus: "CONSCIOUS RELEASE: Transition window. Final release before taking the massive 30-Day Big Leap.",
-        tips: "Review rules of the Big Leap. Re-verify blocker configurations."
-      },
-      {
-        id: "p4",
-        phase: 4,
-        cycleNum: 1,
-        name: "Phase 4: The Big Leap",
-        subtitle: "The 30-Day Rewire",
-        type: "cycle",
-        start: createLocalDate(2026, 9, 7, 0, 0, 0),
-        end: createLocalDate(2026, 10, 6, 23, 59, 59),
-        releaseDate: createLocalDate(2026, 10, 7, 0, 0, 0),
-        duration: 30,
-        focus: "30-Day Semen Retention. Deep androgen receptor reset. Ultimate testing of your transmutation pathways.",
-        tips: "Unbelievable physical energy levels. Channel directly into building a business, learning, or strength training."
-      },
-      {
-        id: "r8",
-        phase: 4,
-        cycleNum: 1,
-        name: "Phase 4 Release",
-        subtitle: "Conscious Release Window",
-        type: "release",
-        start: createLocalDate(2026, 10, 7, 0, 0, 0),
-        end: createLocalDate(2026, 10, 7, 23, 59, 59),
-        nextStart: createLocalDate(2026, 10, 8, 0, 0, 0),
-        duration: 1,
-        focus: "CONSCIOUS RELEASE: High milestone celebration release. Clean environment only. Completely screen-free.",
-        tips: "The brain will crave hyper-stimulation immediately. Re-engage high guard."
-      },
-      {
-        id: "p5",
-        phase: 5,
-        cycleNum: 1,
-        name: "Phase 5: Final Flight",
-        subtitle: "90-Day Full Neuroplastic Reset",
-        type: "cycle",
-        start: createLocalDate(2026, 10, 8, 0, 0, 0),
-        end: createLocalDate(2027, 1, 5, 23, 59, 59),
-        releaseDate: createLocalDate(2027, 1, 6, 0, 0, 0),
-        duration: 90,
-        focus: "The Ultimate 90-Day Flight. Complete baseline restoration, profound lifestyle overhaul, and full autonomy.",
-        tips: "Total victory. Sex is transfigured from a mechanical compulsion into an integrated expression of power."
-      },
-      {
-        id: "r9",
-        phase: 5,
-        cycleNum: 1,
-        name: "Ultimate Goal Achieved",
-        subtitle: "January 6, 2027 Victory",
-        type: "ultimate",
-        start: createLocalDate(2027, 1, 6, 0, 0, 0),
-        end: createLocalDate(2027, 1, 6, 23, 59, 59),
-        duration: 1,
-        focus: "CONGRATULATIONS! You have completed the entire program. Complete freedom and self-ownership achieved.",
-        tips: "Maintain the healthy habits built over these 183 days."
-      }
-    ];
-
-    // --- Motivational Directives based on active block type ---
-    const MOTIVATIONAL_DIRECTIVES = {
-      before: {
-        title: "The Calm Before the Storm",
-        quote: "Every master was once a beginner who refused to quit. Prepare your environments, set blockers, and prepare for takeoff on July 8.",
-        tip: "Go to your web browser and install block lists. Clean your social media feeds. Prepare your mind."
-      },
-      cycle: {
-        title: "Amplify Chemical Retention",
-        quote: "The retention of sexual energy acts as fuel for the nervous system. Down-regulation of dopamine is painful but leads to complete neuroplastic clarity.",
-        tip: "Perform deep box breathing or complete a quick cold shower when visual urges strike."
-      },
-      release: {
-        title: "Surgical Release Window",
-        quote: "A conscious release is a planned harm-reduction boundary. It is NOT a relapse. Do not allow guilt to trigger a multi-day binging descent.",
-        tip: "Strictly avoid screens, keep devices in another room, set a maximum 1-hour window, and cleanse immediately after."
-      },
-      ultimate: {
-        title: "Ultimate Self-Ownership Reached",
-        quote: "You have crossed the finish line. The neural pathways of automatic compulsion have completely faded. Enter the realm of lasting mastery.",
-        tip: "Be proud of your incredible discipline. Continue living with purpose and intention."
-      }
-    };
-
-    // --- App state trackers ---
-    let demoDateOverride = null;
-    let timerInterval = null;
-
-    // --- Core state evaluation function ---
-    function getDashboardState() {
-      const now = demoDateOverride ? new Date(demoDateOverride) : new Date();
-
-      const planStart = createLocalDate(2026, 7, 8, 0, 0, 0);
-      const planEnd = createLocalDate(2027, 1, 6, 23, 59, 59);
-
-      let activeStage = null;
-      let isBeforePlan = false;
-      let isAfterPlan = false;
-
-      if (now < planStart) {
-        isBeforePlan = true;
-        activeStage = STAGES[0]; // Point to first stage for placeholder
-      } else if (now > planEnd) {
-        isAfterPlan = true;
-        activeStage = STAGES[STAGES.length - 1]; // Victory Day
-      } else {
-        // Scan for active stage containing evaluated date
-        for (const stage of STAGES) {
-          if (now >= stage.start && now <= stage.end) {
-            activeStage = stage;
-            break;
-          }
-        }
-        // Fallback safety filter
-        if (!activeStage) {
-          for (let i = 0; i < STAGES.length; i++) {
-            if (now < STAGES[i].start) {
-              activeStage = STAGES[i - 1] || STAGES[0];
-              break;
+        // Load State from LocalStorage
+        function loadState() {
+            const saved = localStorage.getItem('sovereign_wellness_state');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    // Merge parsed state into default schema to ensure backward compatibility
+                    state = { ...state, ...parsed };
+                } catch (e) {
+                    console.error("Error loading localStorage state:", e);
+                }
+            } else {
+                // First-time load: initialize defaults
+                state.tracker_a.startTime = new Date(Date.now() - 36 * 60 * 60 * 1000).toISOString(); // 1.5 Days for visual kickstart
+                state.tracker_b.startTime = new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString(); // 3 Days for visual kickstart
+                saveState();
             }
-          }
-        }
-      }
-
-      // Calculate Overall Master Progress
-      // Total span: July 8, 2026 00:00:00 to January 6, 2027 23:59:59 (exactly 183 days)
-      const totalSpanMs = planEnd - planStart;
-      let masterProgress = 0;
-      let daysCompletedFraction = 0;
-
-      if (isBeforePlan) {
-        masterProgress = 0;
-        daysCompletedFraction = 0;
-      } else if (isAfterPlan) {
-        masterProgress = 100;
-        daysCompletedFraction = 183;
-      } else {
-        const elapsedMs = now - planStart;
-        masterProgress = (elapsedMs / totalSpanMs) * 100;
-        daysCompletedFraction = elapsedMs / (1000 * 60 * 60 * 24);
-      }
-
-      const daysCompleted = Math.floor(daysCompletedFraction);
-      const daysRemaining = Math.max(0, 183 - daysCompleted);
-
-      // Calculate Active Block progress
-      let blockProgress = 0;
-      let timeLeftMs = 0;
-      let countdownTarget = null;
-      let countdownLabel = "";
-
-      if (isBeforePlan) {
-        blockProgress = 0;
-        countdownTarget = planStart;
-        timeLeftMs = countdownTarget - now;
-        countdownLabel = "Time Until Program Starts";
-      } else if (isAfterPlan) {
-        blockProgress = 100;
-        countdownTarget = null;
-        timeLeftMs = 0;
-        countdownLabel = "Ultimate Flight Achieved!";
-      } else {
-        const blockDurationMs = activeStage.end - activeStage.start + 1000;
-        const blockElapsedMs = now - activeStage.start;
-        blockProgress = (blockElapsedMs / blockDurationMs) * 100;
-
-        if (activeStage.type === "cycle") {
-          countdownTarget = activeStage.releaseDate;
-          timeLeftMs = countdownTarget - now;
-          countdownLabel = "Countdown to Next Release";
-        } else if (activeStage.type === "release") {
-          countdownTarget = activeStage.nextStart;
-          timeLeftMs = countdownTarget - now;
-          countdownLabel = "Conscious Release Window Open";
-        } else {
-          countdownTarget = activeStage.end;
-          timeLeftMs = countdownTarget - now;
-          countdownLabel = "Conscious Mastery Complete!";
-        }
-      }
-
-      // Compute safe streak inside current retention segment
-      let safeStreak = 0;
-      if (isBeforePlan) {
-        safeStreak = 0;
-      } else if (isAfterPlan) {
-        safeStreak = 90; // Completed final 90 days retention block
-      } else {
-        if (activeStage.type === "cycle") {
-          const msInCycle = now - activeStage.start;
-          safeStreak = Math.floor(msInCycle / (1000 * 60 * 60 * 24)) + 1;
-        } else {
-          safeStreak = 0; // Release days reset the physical retention streak back to 0
-        }
-      }
-
-      return {
-        now,
-        activeStage,
-        isBeforePlan,
-        isAfterPlan,
-        masterProgress,
-        daysCompleted,
-        daysRemaining,
-        blockProgress,
-        timeLeftMs,
-        countdownTarget,
-        countdownLabel,
-        safeStreak
-      };
-    }
-
-    // --- Update elements on screen based on state ---
-    function updateDashboardUI() {
-      const state = getDashboardState();
-
-      // Update Header status badge
-      const statusBadge = document.getElementById("header-status-badge");
-      const statusText = document.getElementById("header-status-text");
-      const heroCard = document.getElementById("hero-countdown-card");
-      const statusIconFrame = document.getElementById("status-icon-frame");
-      const streakStatBox = document.getElementById("streak-stat-box");
-      const streakBoxLabel = document.getElementById("streak-box-label");
-      const blockProgressPercentage = document.getElementById("block-progress-percentage");
-      const radialProgressRing = document.getElementById("timer-radial-progress");
-
-      // Default cleanups
-      statusBadge.className = "flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border";
-      heroCard.className = "p-6 sm:p-8 rounded-3xl bg-slate-950/80 border shadow-glass relative overflow-hidden flex flex-col items-center justify-center text-center transition-all duration-500 ";
-      statusIconFrame.className = "w-10 h-10 rounded-xl flex items-center justify-center ";
-      streakStatBox.className = "p-3 rounded-2xl text-center border ";
-
-      if (state.isBeforePlan) {
-        statusBadge.classList.add("border-amber-500/30", "bg-amber-950/20", "text-amber-400");
-        statusText.innerText = "STANDBY // PRE-TAKE_OFF";
-        statusBadge.children[0].className = "w-2.5 h-2.5 rounded-full bg-amber-500 inline-block";
-        heroCard.classList.add("border-slate-800/80", "glow-cyan-animate");
-        statusIconFrame.classList.add("bg-neonCyan/10", "border-neonCyan/20", "text-neonCyan");
-        radialProgressRing.setAttribute("stroke", "url(#cyan-indigo-gradient)");
-        streakStatBox.classList.add("bg-slate-900/40", "border-slate-900", "text-slate-500");
-        streakBoxLabel.classList.add("text-slate-500");
-      } else if (state.isAfterPlan) {
-        statusBadge.classList.add("border-purple-500/30", "bg-purple-950/20", "text-purple-400");
-        statusText.innerText = "VICTORY // COMPLETE_MASTERY";
-        statusBadge.children[0].className = "w-2.5 h-2.5 rounded-full bg-purple-500 inline-block";
-        heroCard.classList.add("border-purple-500/40", "shadow-glow-purple");
-        statusIconFrame.classList.add("bg-neonPurple/10", "border-neonPurple/20", "text-neonPurple");
-        radialProgressRing.setAttribute("stroke", "url(#cyan-indigo-gradient)");
-        streakStatBox.classList.add("bg-neonGreen/10", "border-neonGreen/20", "text-neonGreen");
-        streakBoxLabel.classList.add("text-neonGreen");
-      } else {
-        if (state.activeStage.type === "cycle") {
-          statusBadge.classList.add("border-emerald-500/30", "bg-emerald-950/20", "text-emerald-400");
-          statusText.innerText = "RETENTION FLIGHT // SECURE";
-          statusBadge.children[0].className = "w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block";
-          heroCard.classList.add("border-slate-800/80", "glow-cyan-animate");
-          statusIconFrame.classList.add("bg-neonCyan/10", "border-neonCyan/20", "text-neonCyan");
-          radialProgressRing.setAttribute("stroke", "url(#cyan-indigo-gradient)");
-          streakStatBox.classList.add("bg-neonGreen/10", "border-neonGreen/20", "text-neonGreen");
-          streakBoxLabel.classList.add("text-neonGreen");
-        } else if (state.activeStage.type === "release") {
-          statusBadge.classList.add("border-orange-500/30", "bg-orange-950/20", "text-neonOrange");
-          statusText.innerText = "CONTROLLED RELEASE WINDOW";
-          statusBadge.children[0].className = "w-2.5 h-2.5 rounded-full bg-neonOrange inline-block animate-ping";
-          heroCard.classList.add("border-orange-500/40", "glow-orange-animate");
-          statusIconFrame.classList.add("bg-neonOrange/10", "border-neonOrange/20", "text-neonOrange");
-          radialProgressRing.setAttribute("stroke", "url(#orange-amber-gradient)");
-          streakStatBox.classList.add("bg-slate-900/40", "border-slate-900", "text-slate-500");
-          streakBoxLabel.classList.add("text-slate-500");
-        } else {
-          // Ultimate state
-          statusBadge.classList.add("border-purple-500/30", "bg-purple-950/20", "text-purple-400");
-          statusText.innerText = "VICTORY // REACHED_GOAL";
-          statusBadge.children[0].className = "w-2.5 h-2.5 rounded-full bg-purple-400 inline-block";
-          heroCard.classList.add("border-purple-500/40", "shadow-glow-purple");
-          statusIconFrame.classList.add("bg-neonPurple/10", "border-neonPurple/20", "text-neonPurple");
-          radialProgressRing.setAttribute("stroke", "url(#cyan-indigo-gradient)");
-          streakStatBox.classList.add("bg-neonGreen/10", "border-neonGreen/20", "text-neonGreen");
-          streakBoxLabel.classList.add("text-neonGreen");
-        }
-      }
-
-      // Update Live time displays
-      const optDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const optTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-      document.getElementById("live-time-display").innerText = state.now.toLocaleTimeString('en-US', optTime);
-      document.getElementById("live-date-display").innerText = state.now.toLocaleDateString('en-US', optDate);
-
-      // Render Countdown Tickers
-      if (state.timeLeftMs <= 0 || state.isAfterPlan) {
-        document.getElementById("countdown-days").innerText = "00";
-        document.getElementById("countdown-hours").innerText = "00";
-        document.getElementById("countdown-minutes").innerText = "00";
-        document.getElementById("countdown-seconds").innerText = "00";
-        document.getElementById("target-release-date").innerText = "ULTIMATE GOAL REACHED! FREEDOM";
-        radialProgressRing.style.strokeDashoffset = 597;
-      } else {
-        const totalSeconds = Math.floor(state.timeLeftMs / 1000);
-        const days = Math.floor(totalSeconds / (3600 * 24));
-        const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = Math.floor(totalSeconds % 60);
-
-        document.getElementById("countdown-days").innerText = days.toString().padStart(2, '0');
-        document.getElementById("countdown-hours").innerText = hours.toString().padStart(2, '0');
-        document.getElementById("countdown-minutes").innerText = minutes.toString().padStart(2, '0');
-        document.getElementById("countdown-seconds").innerText = seconds.toString().padStart(2, '0');
-
-        const fDate = { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-        document.getElementById("target-release-date").innerText = state.countdownTarget.toLocaleDateString('en-US', fDate);
-
-        // Update radial progress circle (Circumference is 2 * PI * r -> 2 * 3.1415 * 95 = 597)
-        // If countdown target is known: calculate percentage of total block duration remaining
-        let elapsedOfCountdownBlock = 0;
-        let totalCountdownBlockMs = 0;
-
-        if (state.isBeforePlan) {
-          totalCountdownBlockMs = state.countdownTarget - createLocalDate(2026, 7, 7, 0, 0, 0); // relapse to start
-          elapsedOfCountdownBlock = state.now - createLocalDate(2026, 7, 7, 0, 0, 0);
-        } else {
-          totalCountdownBlockMs = state.countdownTarget - state.activeStage.start;
-          elapsedOfCountdownBlock = state.now - state.activeStage.start;
         }
 
-        const remainingPercentage = 1 - (elapsedOfCountdownBlock / totalCountdownBlockMs);
-        const offset = Math.max(0, Math.min(597, 597 * (remainingPercentage || 0)));
-        radialProgressRing.style.strokeDashoffset = offset;
-      }
-
-      document.getElementById("countdown-label-box").innerText = state.countdownLabel;
-
-      // Render Active Block details
-      document.getElementById("current-sector-name").innerText = state.isBeforePlan ? "STANDBY PROTOCOL" : state.activeStage.name;
-      document.getElementById("current-sector-focus").innerText = state.isBeforePlan ? "System activation is pending. Ready your environment. Ensure internet filters are applied." : state.activeStage.focus;
-
-      const typeBadge = document.getElementById("block-type-badge");
-      if (state.isBeforePlan) {
-        typeBadge.innerText = "STANDBY";
-        typeBadge.className = "px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-amber-500/10 border border-amber-500/20 text-amber-400";
-      } else if (state.activeStage.type === "cycle") {
-        typeBadge.innerText = "SEMEN RETENTION";
-        typeBadge.className = "px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-neonCyan/10 border border-neonCyan/20 text-neonCyan";
-      } else if (state.activeStage.type === "release") {
-        typeBadge.innerText = "CONSCIOUS RELEASE";
-        typeBadge.className = "px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-neonOrange/10 border border-neonOrange/20 text-neonOrange";
-      } else {
-        typeBadge.innerText = "MASTERY COMPLETE";
-        typeBadge.className = "px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-neonGreen/10 border border-neonGreen/20 text-neonGreen";
-      }
-
-      // Update Active Block progress bars & stats
-      blockProgressPercentage.innerText = Math.round(state.blockProgress) + "%";
-      document.getElementById("block-progress-bar").style.width = state.blockProgress + "%";
-
-      if (state.isBeforePlan) {
-        document.getElementById("stat-block-duration").innerText = "0 Days";
-        document.getElementById("stat-block-elapsed").innerText = "0 Days";
-        document.getElementById("stat-block-remaining").innerText = "0 Days";
-        document.getElementById("stat-safe-streak").innerText = "0 Days";
-      } else {
-        document.getElementById("stat-block-duration").innerText = state.activeStage.duration + " Days";
-
-        const elapsedDays = Math.floor((state.now - state.activeStage.start) / (1000 * 60 * 60 * 24));
-        const remDays = Math.max(0, state.activeStage.duration - elapsedDays - 1);
-
-        document.getElementById("stat-block-elapsed").innerText = Math.min(state.activeStage.duration, elapsedDays + 1) + " Days";
-        document.getElementById("stat-block-remaining").innerText = remDays + " Days";
-        document.getElementById("stat-safe-streak").innerText = state.safeStreak + " Days";
-      }
-
-      // Master progress UI updating
-      document.getElementById("master-progress-percentage").innerText = state.masterProgress.toFixed(2) + "%";
-      document.getElementById("master-progress-bar").style.width = state.masterProgress + "%";
-      document.getElementById("master-progress-details").innerText = `${state.daysCompleted} / 183 Days`;
-
-      // Update Motivational Directives
-      let directiveSet = MOTIVATIONAL_DIRECTIVES.cycle;
-      if (state.isBeforePlan) {
-        directiveSet = MOTIVATIONAL_DIRECTIVES.before;
-      } else if (state.isAfterPlan) {
-        directiveSet = MOTIVATIONAL_DIRECTIVES.ultimate;
-      } else if (state.activeStage.type === "release") {
-        directiveSet = MOTIVATIONAL_DIRECTIVES.release;
-      }
-
-      document.getElementById("directive-title").innerText = directiveSet.title;
-      document.getElementById("motivational-quote").innerText = `"${directiveSet.quote}"`;
-      document.getElementById("harm-reduction-quick-tip").children[1].innerText = directiveSet.tip;
-
-      // Update Time Machine Widget elements if active
-      const slider = document.getElementById("tm-slider");
-      const datePicker = document.getElementById("tm-date-picker");
-      const sliderLabel = document.getElementById("tm-slider-label");
-
-      if (demoDateOverride) {
-        const offsetDiff = Math.floor((state.now - planStart) / (1000 * 60 * 60 * 24)) + 1;
-        slider.value = Math.max(0, Math.min(184, offsetDiff));
-        sliderLabel.innerText = offsetDiff <= 0 ? "Standby" : offsetDiff >= 183 ? "Victory Day" : `Day ${offsetDiff}`;
-
-        const localISO = state.now.getFullYear() + '-' +
-          String(state.now.getMonth() + 1).padStart(2, '0') + '-' +
-          String(state.now.getDate()).padStart(2, '0');
-        datePicker.value = localISO;
-      }
-
-      // Re-render Timeline and Milestones ONLY on change of active stage to prevent redundant rendering
-      renderTimeline(state.activeStage.id, state.now);
-      renderMilestones(state.daysCompleted);
-    }
-
-    // --- Render dynamic milestones track ---
-    function renderMilestones(daysCompleted) {
-      const milestones = [
-        { d: 4, name: "P1 C1 Clear", badge: "⭐" },
-        { d: 15, name: "Phase 1 Clear", badge: "🛡️" },
-        { d: 31, name: "Phase 2 Clear", badge: "⚔️" },
-        { d: 61, name: "Phase 3 Clear", badge: "🚀" },
-        { d: 92, name: "The Big Leap Done", badge: "🧠" },
-        { d: 183, name: "Ultimate Flight", badge: "🌌" }
-      ];
-
-      const trackEl = document.getElementById("milestones-track");
-      trackEl.innerHTML = "";
-
-      milestones.forEach(m => {
-        const isReached = daysCompleted >= m.d;
-        const badgeClass = isReached
-          ? "bg-neonPurple/20 border-neonPurple/50 text-neonPurple font-bold"
-          : "bg-slate-900/40 border-slate-900 text-slate-500 font-medium";
-
-        trackEl.innerHTML += `
-          <div class="p-2 border rounded-xl flex flex-col items-center justify-center text-center ${badgeClass} text-[10px] tracking-wide uppercase transition-all duration-300">
-            <span class="text-base mb-1">${m.badge}</span>
-            <span class="block leading-tight">${m.name}</span>
-            <span class="block font-mono text-[9px] text-slate-400 mt-0.5">${m.d} Days</span>
-          </div>
-        `;
-      });
-    }
-
-    // --- Render dynamic interactive timeline ---
-    let timelineInitializedWith = null;
-    function renderTimeline(activeStageId, now) {
-      // Optimize to avoid complete DOM rebuilds unless state shifts
-      const cacheKey = activeStageId + "_" + demoDateOverride;
-      if (timelineInitializedWith === cacheKey) return;
-      timelineInitializedWith = cacheKey;
-
-      const board = document.getElementById("timeline-board");
-      board.innerHTML = "";
-
-      // We group the stages into their parent phases for cohesive presentation
-      // Grouping dictionary
-      const phases = {};
-      STAGES.forEach(stage => {
-        const ph = stage.phase;
-        if (!phases[ph]) phases[ph] = [];
-        phases[ph].push(stage);
-      });
-
-      // Render items sequentially
-      STAGES.forEach(stage => {
-        let status = "locked";
-        let cardBg = "border-dashed border-slate-800 bg-slate-950/20 opacity-50";
-        let textClass = "text-slate-500";
-        let iconHtml = `
-          <div class="w-5 h-5 rounded-full border border-slate-800 flex items-center justify-center text-slate-500 bg-slate-950 text-[9px]">
-            🔒
-          </div>
-        `;
-
-        if (now > stage.end) {
-          status = "completed";
-          cardBg = "border-emerald-500/20 bg-emerald-950/5 hover:bg-emerald-950/10 hover:border-emerald-500/40";
-          textClass = "text-slate-300";
-          iconHtml = `
-            <div class="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500 flex items-center justify-center text-emerald-400 text-[10px] font-bold">
-              ✓
-            </div>
-          `;
-        } else if (now >= stage.start && now <= stage.end) {
-          status = "active";
-          const glowCol = stage.type === "cycle" ? "border-neonCyan shadow-glow-cyan" : "border-neonOrange shadow-glow-orange";
-          cardBg = `${glowCol} bg-slate-900/60 font-semibold scale-[1.02] transform z-10`;
-          textClass = "text-slate-100";
-          iconHtml = `
-            <div class="w-5 h-5 rounded-full bg-neonCyan/20 border border-neonCyan flex items-center justify-center text-neonCyan text-[10px] font-black animate-ping">
-              🎯
-            </div>
-          `;
+        // Save State to LocalStorage
+        function saveState() {
+            localStorage.setItem('sovereign_wellness_state', JSON.stringify(state));
         }
 
-        const isRelease = stage.type === "release";
-        const typeLabel = isRelease
-          ? `<span class="text-[9px] font-extrabold uppercase text-neonOrange bg-neonOrange/10 border border-neonOrange/20 px-1 py-0.2 rounded">Release</span>`
-          : `<span class="text-[9px] font-extrabold uppercase text-neonCyan bg-neonCyan/10 border border-neonCyan/20 px-1 py-0.2 rounded">${stage.duration} Days</span>`;
-
-        const datesLabel = stage.start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
-          " - " +
-          stage.end.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-
-        board.innerHTML += `
-          <div onclick="openStageDrawer('${stage.id}')" class="p-4 border rounded-2xl cursor-pointer hover:shadow-glass hover:scale-[1.01] transition-all duration-300 flex flex-col justify-between gap-3 ${cardBg}">
-            <div class="flex items-start justify-between gap-2">
-              <div class="text-left">
-                <p class="text-[10px] font-extrabold text-slate-500 tracking-widest uppercase">PHASE ${stage.phase}</p>
-                <h4 class="text-xs font-black tracking-tight ${textClass} uppercase mt-0.5">${stage.name}</h4>
-              </div>
-              ${iconHtml}
-            </div>
-
-            <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono pt-2 border-t border-slate-900">
-              <span>${datesLabel}</span>
-              ${typeLabel}
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    // --- Interactive Accordion Controller ---
-    function toggleAccordion(accId) {
-      const content = document.getElementById("content-" + accId);
-      const arrow = document.getElementById("arrow-" + accId);
-      const isHidden = content.classList.contains("hidden");
-
-      // Close all accordions first
-      for (let i = 1; i <= 4; i++) {
-        document.getElementById("content-acc-" + i).classList.add("hidden");
-        document.getElementById("arrow-acc-" + i).classList.remove("rotate-180");
-      }
-
-      if (isHidden) {
-        content.classList.remove("hidden");
-        arrow.classList.add("rotate-180");
-        playChime(500, 'triangle', 0.1, 0.04);
-      } else {
-        content.classList.add("hidden");
-        arrow.classList.remove("rotate-180");
-      }
-    }
-
-    // --- Interactive SOS Dialog Manager ---
-    function openSosModal() {
-      document.getElementById("sos-modal").classList.remove("hidden");
-      document.getElementById("sos-step-intercept").classList.remove("hidden");
-      document.getElementById("sos-step-breathing").classList.add("hidden");
-      playChime(220, 'sawtooth', 0.5, 0.08);
-    }
-
-    function closeSosModal() {
-      document.getElementById("sos-modal").classList.add("hidden");
-      stopAndResetBreathing();
-    }
-
-    // --- Urge Wave Box Breathing Helper Engine ---
-    let breathingInterval = null;
-    let breathingCycleCounter = 0;
-    let breathingActive = false;
-    let breathingStage = 0; // 0=Inhale, 1=Hold, 2=Exhale, 3=Hold
-    let breathingTimer = 4;
-
-    const breathingStages = [
-      { text: "Inhale Slowly (Nose)", count: 4, advice: "Let your lower lungs expand completely. Focus on coolness entering nostrils." },
-      { text: "Hold & Relax", count: 4, advice: "Relax your jaw. Relax your shoulders. Let the urge drift." },
-      { text: "Exhale Slowly (Mouth)", count: 4, advice: "Release completely. Imagine blowing the chemical urgency out into the room." },
-      { text: "Hold & Settle", count: 4, advice: "Rest in the space of empty lungs. Rest in the present moment." }
-    ];
-
-    function startUrgeBreathing() {
-      document.getElementById("sos-step-intercept").classList.add("hidden");
-      document.getElementById("sos-step-breathing").classList.remove("hidden");
-      playChime(440, 'sine', 0.2, 0.06);
-      toggleBreathingLoop();
-    }
-
-    function toggleBreathingLoop() {
-      const btn = document.getElementById("breathing-ctrl-btn");
-      const circle = document.getElementById("breathing-circle");
-
-      if (breathingActive) {
-        // Pause
-        clearInterval(breathingInterval);
-        breathingActive = false;
-        btn.innerText = "Resume Exercise";
-        circle.classList.remove("active");
-        circle.style.animationPlayState = "paused";
-      } else {
-        // Start/Resume
-        breathingActive = true;
-        btn.innerText = "Pause Exercise";
-        circle.classList.add("active");
-        circle.style.animationPlayState = "running";
-
-        playChime(523.25, 'sine', 0.3, 0.05); // High C Chime
-        runBreathingTick();
-        breathingInterval = setInterval(runBreathingTick, 1000);
-      }
-    }
-
-    function runBreathingTick() {
-      const label = document.getElementById("breathing-stage-instruction");
-      const counter = document.getElementById("breathing-counter");
-      const advice = document.getElementById("breathing-advice");
-
-      counter.innerText = breathingTimer;
-      label.innerText = breathingStages[breathingStage].text;
-      advice.innerText = `"${breathingStages[breathingStage].advice}"`;
-
-      breathingTimer--;
-
-      if (breathingTimer < 0) {
-        // Shift stage
-        breathingStage = (breathingStage + 1) % 4;
-        breathingTimer = breathingStages[breathingStage].count;
-
-        // Synths play chime indicators per stage shift
-        if (breathingStage === 0) {
-          playChime(523.25, 'sine', 0.4, 0.06); // Inhale
-        } else if (breathingStage === 2) {
-          playChime(392.00, 'sine', 0.4, 0.06); // Exhale G note
-        } else {
-          playChime(329.63, 'sine', 0.2, 0.04); // Hold E note
+        // Apply Dark/Light Theme on Initialization
+        function initTheme() {
+            if (state.darkMode) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
         }
-      }
-    }
 
-    function stopAndResetBreathing() {
-      clearInterval(breathingInterval);
-      breathingActive = false;
-      breathingStage = 0;
-      breathingTimer = 4;
-      const circle = document.getElementById("breathing-circle");
-      circle.classList.remove("active");
-      circle.style.animationPlayState = "paused";
-      circle.style.transform = "scale(1)";
+        // Toggle Theme
+        function toggleTheme() {
+            state.darkMode = !state.darkMode;
+            saveState();
+            initTheme();
+        }
 
-      document.getElementById("breathing-ctrl-btn").innerText = "Start Exercise";
-      document.getElementById("breathing-counter").innerText = "4";
-      document.getElementById("breathing-stage-instruction").innerText = "Click below to start box breathing";
-    }
+        // Toggle Privacy Mode
+        function togglePrivacyMode() {
+            state.privacyMode = !state.privacyMode;
+            saveState();
+            renderPrivacyState();
+        }
 
-    // --- Interactive Stage Drawer ---
-    function openStageDrawer(stageId) {
-      const stage = STAGES.find(s => s.id === stageId);
-      if (!stage) return;
+        // Dismiss Onboarding Card
+        function dismissOnboarding() {
+            state.onboardingDismissed = true;
+            saveState();
+            document.getElementById('onboarding-banner').classList.add('hidden');
+        }
 
-      document.getElementById("drawer-title").innerText = stage.name;
-      document.getElementById("drawer-type").innerText = stage.type === "cycle" ? "Retention Segment" : "Conscious Release Window";
-      document.getElementById("drawer-dates").innerText = stage.start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) +
-        " - " +
-        stage.end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      document.getElementById("drawer-duration").innerText = stage.duration + " Days";
-      document.getElementById("drawer-focus").innerText = stage.focus + " // Tip: " + stage.tips;
+        // Render Page Layout according to Privacy Mode Settings
+        function renderPrivacyState() {
+            const appTitle = document.getElementById('app-title');
+            const appSubtitle = document.getElementById('app-subtitle');
+            const logoContainer = document.getElementById('logo-container');
+            const privacyIcon = document.getElementById('privacy-icon');
+            const privacyText = document.getElementById('privacy-text');
+            const privacyDot = document.getElementById('privacy-dot-container');
 
-      const drawer = document.getElementById("stage-drawer");
-      drawer.classList.remove("hidden");
-      setTimeout(() => {
-        drawer.classList.remove("translate-x-full");
-      }, 10);
-      playChime(659.25, 'sine', 0.1, 0.05); // High E
-    }
+            // Tracker A Elements
+            const trackerATitle = document.getElementById('tracker-a-title');
+            const trackerADesc = document.getElementById('tracker-a-desc');
+            const trackerAIcon = document.getElementById('tracker-a-icon');
+            const trackerAIconBg = document.getElementById('tracker-a-icon-bg');
 
-    function closeStageDrawer() {
-      const drawer = document.getElementById("stage-drawer");
-      drawer.classList.add("translate-x-full");
-      setTimeout(() => {
-        drawer.classList.add("hidden");
-      }, 500);
-      playChime(523.25, 'sine', 0.1, 0.03); // High C
-    }
+            // Tracker B Elements
+            const trackerBTitle = document.getElementById('tracker-b-title');
+            const trackerBDesc = document.getElementById('tracker-b-desc');
+            const trackerBIcon = document.getElementById('tracker-b-icon');
+            const trackerBIconBg = document.getElementById('tracker-b-icon-bg');
 
-    // --- TIME MACHINE ENGINE (Sandbox Demo Controls) ---
-    function toggleTimeMachine() {
-      const panel = document.getElementById("time-machine-panel");
-      const isHidden = panel.classList.contains("hidden");
+            // Journal Title
+            const journalTitle = document.getElementById('journal-title');
+            const insightsPanelTitle = document.getElementById('insights-panel-title');
+            const onboardingTitle = document.getElementById('onboarding-title');
+            const onboardingDescription = document.getElementById('onboarding-description');
 
-      if (isHidden) {
-        panel.classList.remove("hidden");
-        playChime(587.33, 'triangle', 0.15, 0.05); // D note
-      } else {
-        panel.classList.add("hidden");
-      }
-    }
+            if (state.privacyMode) {
+                // Update header
+                appTitle.textContent = "Sovereign Focus";
+                appSubtitle.textContent = "Personal Productivity Dashboard";
+                logoContainer.innerHTML = '<i data-lucide="sparkles" class="w-6 h-6"></i>';
+                logoContainer.className = "p-2 bg-indigo-500/10 text-indigo-500 rounded-xl";
 
-    function handleSliderChange(val) {
-      const daysOffset = parseInt(val);
-      const planStart = createLocalDate(2026, 7, 8, 12, 0, 0); // Noon anchor
+                // Update Privacy Toggle button UI
+                privacyIcon.setAttribute('data-lucide', 'eye-off');
+                privacyText.textContent = "Privacy: On";
+                privacyDot.innerHTML = `
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                `;
 
-      if (daysOffset === 0) {
-        demoDateOverride = createLocalDate(2026, 7, 7, 12, 0, 0); // Last relapse day
-      } else {
-        const offsetDate = new Date(planStart);
-        offsetDate.setDate(planStart.getDate() + (daysOffset - 1));
-        demoDateOverride = offsetDate;
-      }
+                // Update Tracker A (Self-Control -> Habit Focus A)
+                trackerATitle.textContent = "Mindfulness Focus";
+                trackerADesc.textContent = "Time spent in conscious presence";
+                trackerAIcon.setAttribute('data-lucide', 'target');
+                trackerAIconBg.className = "p-2.5 bg-indigo-500/10 text-indigo-500 rounded-xl";
 
-      playChime(440 + (daysOffset * 2), 'sine', 0.05, 0.03); // Modulate synth pitch relative to date slider index
-      updateDashboardUI();
-    }
+                // Update Tracker B (Digital Detox -> Habit Focus B)
+                trackerBTitle.textContent = "Digital Balance";
+                trackerBDesc.textContent = "Time spent in healthy offline habits";
+                trackerBIcon.setAttribute('data-lucide', 'shield');
+                trackerBIconBg.className = "p-2.5 bg-indigo-500/10 text-indigo-500 rounded-xl";
 
-    function handleDatePickerChange(val) {
-      if (!val) return;
-      const parts = val.split('-');
-      // Parts: [YYYY, MM, DD]
-      demoDateOverride = createLocalDate(parseInt(parts[0]), parseInt(parts[1]), parseInt(parts[2]), 12, 0, 0);
-      playChime(587.33, 'sine', 0.1, 0.05);
-      updateDashboardUI();
-    }
+                // Onboarding Title & Description
+                onboardingTitle.textContent = "Welcome to Sovereign Focus";
+                onboardingDescription.textContent = "Your elegant habit companion for daily focus, screen boundaries, and self-reflection. Track custom timelines, practice deep-breathing exercises, and maintain complete offline privacy.";
 
-    function setDemoPreset(dateStr) {
-      const parts = dateStr.split('-');
-      demoDateOverride = createLocalDate(parseInt(parts[0]), parseInt(parts[1]), parseInt(parts[2]), 12, 0, 0);
-      playChime(698.46, 'triangle', 0.2, 0.06); // F note
-      updateDashboardUI();
-    }
+                // Side Cards
+                journalTitle.textContent = "Daily Reflection Notes";
+                insightsPanelTitle.textContent = "Focus Techniques";
+            } else {
+                // Standard mode
+                appTitle.textContent = "Sovereign";
+                appSubtitle.textContent = "Private Self-Mastery Dashboard";
+                logoContainer.innerHTML = '<i data-lucide="shield" class="w-6 h-6"></i>';
+                logoContainer.className = "p-2 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-xl";
 
-    function resetToToday() {
-      demoDateOverride = null;
-      document.getElementById("tm-date-picker").value = "";
-      playChime(880, 'sine', 0.25, 0.06); // Victory A note
-      updateDashboardUI();
-    }
+                // Update Privacy Toggle Button UI
+                privacyIcon.setAttribute('data-lucide', 'eye');
+                privacyText.textContent = "Privacy: Off";
+                privacyDot.innerHTML = `
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-slate-400"></span>
+                `;
 
-    // --- INITIALIZATION ---
-    window.onload = function () {
-      // Execute initial dynamic state check
-      updateDashboardUI();
+                // Update Tracker A (Sober Tracker)
+                trackerATitle.textContent = "Sober Tracker";
+                trackerADesc.textContent = "Time since last masturbated";
+                trackerAIcon.setAttribute('data-lucide', 'heart-handshake');
+                trackerAIconBg.className = "p-2.5 bg-rose-500/10 dark:bg-rose-400/10 text-rose-600 dark:text-rose-400 rounded-xl";
 
-      // Keep real-time timers ticking every second
-      timerInterval = setInterval(() => {
-        updateDashboardUI();
-      }, 1000);
+                // Update Tracker B (Digital Detox)
+                trackerBTitle.textContent = "Digital Detox";
+                trackerBDesc.textContent = "Time since last watched porn";
+                trackerBIcon.setAttribute('data-lucide', 'monitor-off');
+                trackerBIconBg.className = "p-2.5 bg-emerald-500/10 dark:bg-emerald-400/10 text-emerald-600 dark:text-emerald-400 rounded-xl";
 
-      // Warm motivational check-in sound trigger
-      setTimeout(() => {
-        playChime(554.37, 'sine', 0.35, 0.03); // Quiet starting chord
-      }, 800);
-    };
-  </script>
+                // Onboarding Title & Description
+                onboardingTitle.textContent = "Welcome to Sovereign";
+                onboardingDescription.textContent = "This is your 100% private, self-improvement space. No servers, no tracking, and no external analytics. Your milestones, reflections, and logs are kept strictly local to this browser, ensuring complete privacy while you rebuild self-mastery and digital wellness.";
+
+                // Side Cards
+                journalTitle.textContent = "Reflective Daily Journal";
+                insightsPanelTitle.textContent = "Mindful Tools";
+            }
+
+            // Recalculate/redraw Lucide Icons for modified elements
+            lucide.createIcons();
+
+            // Refresh recent history lists to update specific text tokens if privacy mode changed
+            renderHistory('tracker_a');
+            renderHistory('tracker_b');
+        }
+
+        // Live Ticking Counter Calculations
+        function startCounters() {
+            function update() {
+                const now = new Date();
+
+                ['tracker_a', 'tracker_b'].forEach(trackerKey => {
+                    const tracker = state[trackerKey];
+                    const start = new Date(tracker.startTime);
+                    let diffMs = now.getTime() - start.getTime();
+
+                    if (diffMs < 0) {
+                        diffMs = 0;
+                    }
+
+                    // Calculations
+                    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+
+                    // Update Tickers with padded values
+                    document.getElementById(`${trackerKey}-days`).textContent = String(days).padStart(2, '0');
+                    document.getElementById(`${trackerKey}-hours`).textContent = String(hours).padStart(2, '0');
+                    document.getElementById(`${trackerKey}-minutes`).textContent = String(minutes).padStart(2, '0');
+                    document.getElementById(`${trackerKey}-seconds`).textContent = String(seconds).padStart(2, '0');
+
+                    // Automatically update longest streak if current beats it
+                    if (diffMs > tracker.longestStreak) {
+                        tracker.longestStreak = diffMs;
+                        saveState();
+                        document.getElementById(`${trackerKey}-longest-streak`).textContent = formatStreak(diffMs);
+                    }
+
+                    // Update current streak readable string
+                    document.getElementById(`${trackerKey}-current-streak`).textContent = formatStreak(diffMs);
+                });
+            }
+
+            update();
+            setInterval(update, 1000);
+        }
+
+        // Readable Streak Formatter (e.g. "5d 12h 30m" or "40s")
+        function formatStreak(ms) {
+            if (ms <= 0) return "0s";
+            const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+
+            if (days > 0) {
+                return `${days}d ${hours}h ${minutes}m`;
+            }
+            if (hours > 0) {
+                return `${hours}h ${minutes}m`;
+            }
+            if (minutes > 0) {
+                return `${minutes}m ${seconds}s`;
+            }
+            return `${seconds}s`;
+        }
+
+        // Render Static Analytics Numbers
+        function renderAnalytics() {
+            document.getElementById('tracker_a-longest-streak').textContent = formatStreak(state.tracker_a.longestStreak);
+            document.getElementById('tracker_b-longest-streak').textContent = formatStreak(state.tracker_b.longestStreak);
+        }
+
+        // Render Resets History Log
+        function renderHistory(trackerKey) {
+            const listContainer = document.getElementById(`${trackerKey}-history-list`);
+            const history = state[trackerKey].history || [];
+
+            if (history.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-4 text-xs text-slate-400 dark:text-slate-500 font-medium">
+                        Pure streak! No recent setbacks registered. Keep going strong!
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            // Display only up to the last 3 items
+            const recent = history.slice(-3).reverse();
+            recent.forEach(item => {
+                const date = new Date(item.timestamp);
+                const formattedDate = date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ', ' + date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+
+                // Privacy wording filter
+                let noteText = item.note || '';
+                let feelingText = item.feeling || 'N/A';
+
+                if (state.privacyMode) {
+                    noteText = noteText.replace(/porn/gi, "distraction").replace(/masturbat\w*/gi, "habit slip").replace(/relapse/gi, "disruption");
+                }
+
+                html += `
+                    <div class="border-b border-slate-100 dark:border-slate-800/40 last:border-0 pb-2 last:pb-0 pt-1">
+                        <div class="flex items-center justify-between text-xs mb-1">
+                            <span class="text-slate-500 dark:text-slate-400 font-semibold font-mono">${formattedDate}</span>
+                            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">${feelingText}</span>
+                        </div>
+                        ${noteText ? `<p class="text-xs text-slate-600 dark:text-slate-300 italic">"${noteText}"</p>` : `<p class="text-xs text-slate-400 italic">No notes provided.</p>`}
+                    </div>
+                `;
+            });
+
+            listContainer.innerHTML = html;
+        }
+
+        // ----------------- RESET MODAL FUNCTIONS -----------------
+        function openResetModal(trackerKey) {
+            activeResetTracker = trackerKey;
+            activeResetFeeling = null;
+
+            // Clear prior form values
+            document.getElementById('reset-reflection-note').value = '';
+
+            // Deselect feelings
+            const buttons = document.querySelectorAll('.feeling-tag');
+            buttons.forEach(btn => btn.className = "feeling-tag py-2 px-1 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-950/60 text-slate-600 dark:text-slate-300 transition-all");
+
+            const modal = document.getElementById('reset-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.querySelector('div').classList.remove('scale-95'), 10);
+        }
+
+        function selectResetFeeling(feeling) {
+            activeResetFeeling = feeling;
+            const buttons = document.querySelectorAll('.feeling-tag');
+
+            buttons.forEach(btn => {
+                if (btn.innerText.includes(feeling)) {
+                    btn.className = "feeling-tag py-2 px-1 text-xs font-semibold rounded-xl border border-rose-500 bg-rose-500/10 text-rose-600 dark:text-rose-400 transition-all";
+                } else {
+                    btn.className = "feeling-tag py-2 px-1 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-950/60 text-slate-600 dark:text-slate-300 transition-all";
+                }
+            });
+        }
+
+        function closeResetModal() {
+            const modal = document.getElementById('reset-modal');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                activeResetTracker = null;
+                activeResetFeeling = null;
+            }, 150);
+        }
+
+        function confirmReset() {
+            if (!activeResetTracker) return;
+
+            const note = document.getElementById('reset-reflection-note').value.trim();
+            const feeling = activeResetFeeling || 'N/A';
+            const timestamp = new Date().toISOString();
+
+            // Push setback to tracker history
+            state[activeResetTracker].history.push({
+                timestamp,
+                feeling,
+                note
+            });
+
+            // Set new Start Time
+            state[activeResetTracker].startTime = timestamp;
+
+            saveState();
+            renderHistory(activeResetTracker);
+            renderAnalytics();
+            closeResetModal();
+        }
+
+        // ----------------- EDIT START DATE MODAL FUNCTIONS -----------------
+        function openEditModal(trackerKey) {
+            activeEditTracker = trackerKey;
+
+            // Populate value
+            const currentStartTime = new Date(state[trackerKey].startTime);
+            // Format to YYYY-MM-DDThh:mm (which datetime-local expects)
+            const timezoneOffset = currentStartTime.getTimezoneOffset() * 60000; // in ms
+            const localISOTime = (new Date(currentStartTime.getTime() - timezoneOffset)).toISOString().slice(0, 16);
+
+            document.getElementById('edit-datetime-input').value = localISOTime;
+
+            const modal = document.getElementById('edit-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.querySelector('div').classList.remove('scale-95'), 10);
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('edit-modal');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                activeEditTracker = null;
+            }, 150);
+        }
+
+        function confirmEdit() {
+            if (!activeEditTracker) return;
+
+            const inputValue = document.getElementById('edit-datetime-input').value;
+            if (!inputValue) return;
+
+            const newDate = new Date(inputValue);
+            if (isNaN(newDate.getTime())) return;
+
+            // Save start time
+            state[activeEditTracker].startTime = newDate.toISOString();
+
+            // recalculate best streak immediately
+            const diff = Date.now() - newDate.getTime();
+            if (diff > state[activeEditTracker].longestStreak) {
+                state[activeEditTracker].longestStreak = diff;
+            }
+
+            saveState();
+            renderAnalytics();
+            closeEditModal();
+        }
+
+        // ----------------- JOURNAL MANAGEMENT -----------------
+        function setJournalMood(mood) {
+            activeJournalMood = mood;
+            const buttons = document.querySelectorAll('.mood-btn');
+
+            buttons.forEach(btn => {
+                btn.className = "mood-btn px-2.5 py-1 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-500 hover:text-slate-950 dark:hover:text-white transition-all";
+            });
+
+            const activeBtn = document.getElementById(`mood-${mood}`);
+            if (activeBtn) {
+                activeBtn.className = "mood-btn px-2.5 py-1 text-xs font-bold rounded-lg border border-indigo-500 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 transition-all";
+            }
+        }
+
+        function addJournalEntry(event) {
+            event.preventDefault();
+            const textarea = document.getElementById('journal-input');
+            const text = textarea.value.trim();
+            if (!text) return;
+
+            const entry = {
+                id: Date.now().toString(),
+                timestamp: new Date().toISOString(),
+                text: text,
+                mood: activeJournalMood || 'calm'
+            };
+
+            state.journal.push(entry);
+            saveState();
+
+            // Clear form
+            textarea.value = '';
+            activeJournalMood = null;
+            const buttons = document.querySelectorAll('.mood-btn');
+            buttons.forEach(btn => {
+                btn.className = "mood-btn px-2.5 py-1 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-500 hover:text-slate-950 dark:hover:text-white transition-all";
+            });
+
+            renderJournal();
+        }
+
+        function deleteJournalEntry(id) {
+            if (confirm("Are you sure you want to delete this reflection?")) {
+                state.journal = state.journal.filter(entry => entry.id !== id);
+                saveState();
+                renderJournal();
+            }
+        }
+
+        function renderJournal() {
+            const list = document.getElementById('journal-list');
+            const entries = state.journal || [];
+
+            if (entries.length === 0) {
+                list.innerHTML = `
+                    <div class="text-center py-6 text-xs text-slate-400 dark:text-slate-500 font-medium">
+                        No reflections written yet. Recording your progress helps you stay consistent.
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            // Show all journals newest first
+            const sorted = [...entries].reverse();
+            sorted.forEach(entry => {
+                const date = new Date(entry.timestamp);
+                const dateStr = date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+
+                let moodEmoji = '🧘';
+                if (entry.mood === 'strong') moodEmoji = '💪';
+                if (entry.mood === 'anxious') moodEmoji = '🌪️';
+                if (entry.mood === 'tired') moodEmoji = '😴';
+
+                let filterText = entry.text;
+                if (state.privacyMode) {
+                    filterText = filterText.replace(/porn/gi, "distraction").replace(/masturbat\w*/gi, "habit slip").replace(/relapse/gi, "disruption");
+                }
+
+                html += `
+                    <div class="p-3 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-950/40 space-y-1.5 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                                <span>${moodEmoji}</span>
+                                <span class="capitalize">${entry.mood}</span>
+                                <span class="mx-1 text-slate-300 dark:text-slate-700">&bull;</span>
+                                <span class="font-mono">${dateStr}</span>
+                            </span>
+                            <button onclick="deleteJournalEntry('${entry.id}')" class="text-slate-400 hover:text-red-500 transition-colors">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">${filterText}</p>
+                    </div>
+                `;
+            });
+
+            list.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // Purge All App Data
+        function clearAllData() {
+            if (confirm("⚠️ WARNING: This will permanently delete all your streaks, records, and journal history. This action cannot be undone. Are you sure you want to proceed?")) {
+                localStorage.removeItem('sovereign_wellness_state');
+                location.reload();
+            }
+        }
+
+        // ----------------- APP INITIALIZATION -----------------
+        window.addEventListener('DOMContentLoaded', () => {
+            // Load state
+            loadState();
+
+            // Set light/dark theme
+            initTheme();
+
+            // Check onboarding dismissed status
+            if (state.onboardingDismissed) {
+                document.getElementById('onboarding-banner').classList.add('hidden');
+            }
+
+            // Render privacy mode layout shifts
+            renderPrivacyState();
+
+            // Run counter interval
+            startCounters();
+
+            // Populate dashboard historical grids
+            renderAnalytics();
+            renderHistory('tracker_a');
+            renderHistory('tracker_b');
+            renderJournal();
+
+            // Initialize Lucide SVG replacement
+            lucide.createIcons();
+        });
+    </script>
 </body>
 
 </html>
